@@ -22,7 +22,7 @@ services:
     volumes:
       - ./:/app
     ports:
-      - "8000:8003"
+      - "8003:8003"
     depends_on:
       - pg
     env_file:
