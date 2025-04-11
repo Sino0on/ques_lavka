@@ -10,7 +10,7 @@ def import_product_images():
     base_url = 'https://api.moysklad.ru/api/remap/1.2/entity/product'
     headers = {"Authorization": f"Bearer {config('MS_TOKEN')}"}
 
-    products = Product.objects.all()[:9]
+    products = Product.objects.all()
 
     for product in products:
         if product.images.exists():
