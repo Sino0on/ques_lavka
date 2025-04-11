@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="").split(',')
 
 # Application definition
 
