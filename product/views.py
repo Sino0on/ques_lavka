@@ -32,3 +32,9 @@ class ProductDetailApiView(generics.RetrieveAPIView):
     serializer_class = ProductSerializer
     lookup_field = 'pk'
 
+
+class ProductOnly3ApiView(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = Product.objects.all().order_by('?')[:10]
+    # pagination_class = MyCustomPagination
+    serializer_class = ProductSerializer
