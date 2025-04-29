@@ -14,8 +14,8 @@ urlpatterns = [
     path("users/check-passwords/", PasswordCheckView.as_view()),
 
     path("users/register/", UserRegisterApiView.as_view()),
-    path("users/register/activation/<str:code>/", UserActivateApiView.as_view()),
-    path("users/register/send-sms-again/", SendSMSAgainApiView.as_view()),
+    # path("users/register/activation/<str:code>/", UserActivateApiView.as_view()),
+    # path("users/register/send-sms-again/", SendSMSAgainApiView.as_view()),
 
     path("users/reset/password/", ResetPasswordApiView.as_view()),
     path("users/reset/code/confirm/", CodeResetPasswordApiView.as_view()),

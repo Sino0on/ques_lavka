@@ -32,7 +32,6 @@ class PasswordCheckSerializer(serializers.Serializer):
 class UserRegisterSerializer(serializers.Serializer):
     phone = serializers.CharField(max_length=15, required=False)
     first_name = serializers.CharField(max_length=50)
-    last_name = serializers.CharField(max_length=50)
     password1 = serializers.CharField()
     email = serializers.EmailField()
 
@@ -56,7 +55,7 @@ class UserRegisterSerializer(serializers.Serializer):
 
     class Meta:
         model = User
-        fields = ("phone", "password1", 'email', 'first_name', 'last_name')
+        fields = ("phone", "password1", 'email', 'first_name')
 
 
 class ActivateUserSerializer(serializers.Serializer):

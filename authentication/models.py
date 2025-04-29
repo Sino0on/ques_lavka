@@ -37,15 +37,16 @@ class User(AbstractUser):
     phone = models.CharField(max_length=15, null=True, unique=True, verbose_name=_('Номер телефона'), blank=True)
     email = models.EmailField(unique=True)
     username = models.CharField(unique=False, max_length=250, blank=True, null=True, verbose_name=_('Имя пользователя'))
+    last_name = models.CharField(unique=False, max_length=250, blank=True, null=True, verbose_name=_('Фамилия'))
     code = models.CharField(max_length=50, null=True, verbose_name=_('Код'), blank=True)
     patronymic = models.CharField(
         max_length=255, verbose_name=_("Отчество"), blank=True, null=True
     )
     last_sms_date = models.DateTimeField(null=True, verbose_name=_('Дата отправки кода'), blank=True)
-    auth_provider = models.CharField(max_length=20, blank=True, null=True, verbose_name=_('Провайдер'))
-    avatar = models.ImageField(blank=True, null=True, upload_to="avatars/%Y/%m", default='avatars/df/Zherdesh logo-05.png',
-                               verbose_name=_('Аватар'))
-    is_confirm = models.BooleanField(default=False, blank=True, verbose_name=_('Подтверждение почты'))
+    # auth_provider = models.CharField(max_length=20, blank=True, null=True, verbose_name=_('Провайдер'))
+    # avatar = models.ImageField(blank=True, null=True, upload_to="avatars/%Y/%m", default='avatars/df/Zherdesh logo-05.png',
+    #                            verbose_name=_('Аватар'))
+    # is_confirm = models.BooleanField(default=True, blank=True, verbose_name=_('Подтверждение почты'))
     objects = UserManager()
 
     USERNAME_FIELD = "email"

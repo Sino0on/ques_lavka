@@ -106,23 +106,23 @@ class UserRegisterApiView(APIView):
         raw_password = serializer.validated_data.get("password1")
         email = serializer.validated_data.get("email")
 
-        code = "".join([str(random.randint(1, 9)) for _ in range(0, 6)])
+        # code = "".join([str(random.randint(1, 9)) for _ in range(0, 6)])
 
         user = User.objects.filter(email=email)
 
         if user.exists():
             user = user.first()
-            user.code = urlsafe_base64_encode(force_bytes(code))
-            user.last_sms_date = datetime.datetime.now(datetime.timezone.utc)
+            # user.code = urlsafe_base64_encode(force_bytes(code))
+            # user.last_sms_date = datetime.datetime.now(datetime.timezone.utc)
         else:
             user = User(
                 phone=phone,
-                is_confirm=False,
+                # is_confirm=False,
                 first_name=serializer.validated_data.get("first_name"),
                 last_name=serializer.validated_data.get("last_name"),
                 email=serializer.validated_data.get("email"),
-                code=urlsafe_base64_encode(force_bytes(code)),
-                last_sms_date=datetime.datetime.now(datetime.timezone.utc),
+                # code=urlsafe_base64_encode(force_bytes(code)),
+                # last_sms_date=datetime.datetime.now(datetime.timezone.utc),
             )
 
         user.set_password(raw_password)
