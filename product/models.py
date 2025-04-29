@@ -1,5 +1,8 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
+
+User = get_user_model()
 
 class Category(models.Model):
     old_id = models.CharField(max_length=255, blank=True, null=True)
@@ -48,3 +51,31 @@ class ImageProduct(models.Model):
     def __str__(self):
         return str(self.product)
 
+
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
+
+    def __str__(self):
+        return f"Cart of {self.user}"
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        unique_together = ('cart', 'product')
+
+    def __str__(self):
+        return f"{self.product.name} x {self.quantity}"
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'product')
+
+    def __str__(self):
+        return f"{self.user} ❤️ {self.product.name}"
