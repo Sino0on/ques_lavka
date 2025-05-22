@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static './css/catalog.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+<style>
+	.heart-icon:hover {
+		content: url('{% static '/assets/icons/activeHeart.svg' %}');
+	}
+</style>
+{% endblock %}
+{% block content %}
+		<section class="catalog">
+			<div class="container">
+				<div class="filtersidebar">
+					<div class="filtersidebar__row">
+						<button type="button" class="filtersidebar__btn" id="openFilterBtn">
+							<img
+								src="{% static '/assets/icons/Catalog/Filtericon.svg' %}"
+								alt="Filter Icon"
+							/>
+							<h3 class="filtersidebar__btn-text">Фильтры</h3>
+						</button>
+						<div class="filtersidebar__text">
+							<p class="filtersidebar__sort" id="sortToggle">
+								Сортировать по:
+								<span id="currentSort" class="filtersidebar__sort__text"
+									>Популярности</span
+								>
+								<img src="{% static './assets/icons/filter-arrow.svg' %}" alt="arrow" />
+								<img
+									src="{% static './assets/icons/filter-arrow.svg' %}"
+									class="filter-arrow"
+									alt="arrow"
+								/>
+							</p>
+							<ul class="filtersidebar__dropdown" id="sortDropdown">
+								<li
+									class="filtersidebar__dropdown-item"
+									data-sort="Популярности"
+								>
+									Популярности
+								</li>
+								<li class="filtersidebar__dropdown-item" data-sort="По скидкам">
+									По скидкам
+								</li>
+								<li
+									class="filtersidebar__dropdown-item"
+									data-sort="Сначала дешевле"
+								>
+									Сначала дешевле
+								</li>
+								<li
+									class="filtersidebar__dropdown-item"
+									data-sort="Сначала дороже"
+								>
+									Сначала дороже
+								</li>
+								<li
+									class="filtersidebar__dropdown-item"
+									data-sort="По алфавиту"
+								>
+									По алфавиту
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Панель фильтров -->
+					<div class="filtersidebar__panel" id="filterPanel">
+						<button
+							type="button"
+							title="toggleFilter"
+							class="filtersidebar__close"
+							id="closeFilterBtn"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="filtersidebar__close-icon"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							</svg>
+						</button>
+						<h2 class="filtersidebar__title">ФИЛЬТРЫ</h2>
+						<div class="filtersidebar__checkboxes">
+							<label class="filtersidebar__label">
+								<span>Со скидкой</span>
+								<input type="checkbox" class="filtersidebar__checkbox" />
+							</label>
+							<label class="filtersidebar__label">
+								<span>В наличии</span>
+								<input
+									type="checkbox"
+									class="filtersidebar__checkbox"
+									checked
+								/>
+							</label>
+						</div>
+						<div class="filtersidebar__slider">
+							<div class="filtersidebar__slider-labels">
+								<span id="minPriceLabel">от 50 с</span>
+								<span id="maxPriceLabel">до 10000 с</span>
+							</div>
+							<div class="filtersidebar__slider-container">
+								<div class="filtersidebar__track"></div>
+								<input
+									title="minPrice"
+									type="range"
+									min="50"
+									max="10000"
+									value="50"
+									class="filtersidebar__range"
+									id="minPrice"
+								/>
+								<input
+									title="maxPrice"
+									type="range"
+									min="50"
+									max="10000"
+									value="10000"
+									class="filtersidebar__range"
+									id="maxPrice"
+								/>
+							</div>
+						</div>
+						<ul class="filtersidebar__categories">
+							<li class="filtersidebar__category">
+								<span>Аксессуары</span>
+								<button type="button" class="filtersidebar__button">+</button>
+							</li>
+							<li class="filtersidebar__category">
+								<span>Все для волос</span>
+								<button type="button" class="filtersidebar__button">+</button>
+							</li>
+							<li class="filtersidebar__category">
+								<span>Головные уборы</span>
+								<button type="button" class="filtersidebar__button">+</button>
+							</li>
+							<li class="filtersidebar__category">
+								<span>Конструкторы</span>
+								<button type="button" class="filtersidebar__button">+</button>
+							</li>
+							<li class="filtersidebar__category">
+								<span>Ночники</span>
+								<button type="button" class="filtersidebar__button">-</button>
+							</li>
+						</ul>
+					</div>
+					<div class="filtersidebar__overlay" id="filterOverlay"></div>
+				</div>
+				<!-- Лоадер (скрыт по умолчанию) -->
+				<div class="loader-container" style="display: none">
+					<span class="loader"></span>
+				</div>
+
+				<!-- Контент каталога -->
+				<div class="catalog-content">
+					<div class="catalog-grid">
+						<!-- Карточка 1 (маленькая) -->
+						<div class="product-card">
+							<div class="product-card__img">
+
+								<img
+									src="{% if product1.get_main_image %}{{ product1.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Product"
+									class="product-image placeholder"
+								/>
+								<div class="heart-icon">
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
+								</div>
+							</div>
+							<div class="product-card__info">
+								<a href="{% url 'product_detail' i.product.pk %}">
+									<img
+										src="{% static './assets/icons/heart.svg' %}"
+										alt="Like"
+										class="heart-icon"
+									/>
+								</a>
+								<h2 class="product-title">{{ product1.name }}</h2>
+								<h3 class="product-subtitle">{{ product1.barcodes }}</h3>
+								<div class="product-card__footer">
+									<p class="product-price">{{ product1.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Карточка 2 (маленькая) -->
+						<div class="product-card">
+							<div class="product-card__img">
+								<img
+									src="{% if product2.get_main_image %}{{ product2.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Product"
+									class="product-image placeholder"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2 class="product-title">{{ product2.name }}</h2>
+								<h3 class="product-subtitle">{{ product2.barcodes }}</h3>
+								<div class="product-card__footer">
+									<p class="product-price">{{ product2.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Карточка 3 (маленькая) -->
+						<div class="product-card">
+							<img
+								src="{% static '/assets/icons/2.svg' %}"
+								alt="Product Icon"
+								class="product-icon"
+							/>
+							<div class="product-card__img">
+								<img
+									src="{% if product3.get_main_image %}{{ product3.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Product"
+									class="product-image placeholder"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2 class="product-title">{{ product3.name }}</h2>
+								<h3 class="product-subtitle">{{ product3.barcodes }}</h3>
+								<div class="product-card__footer">
+									<p class="product-price">{{ product3.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Карточка 4 (маленькая) -->
+						<div class="product-card">
+							<div class="product-card__img">
+								<img
+									src="{% if product4.get_main_image %}{{ product4.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Product"
+									class="product-image placeholder"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2 class="product-title">{{ product4.name }}</h2>
+								<h3 class="product-subtitle">{{ product4.barcodes }}</h3>
+								<div class="product-card__footer">
+									<p class="product-price">{{ product4.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Карточка 5 (маленькая) -->
+						<div class="product-card">
+							<img
+								src="{% static '/assets/icons/4.svg' %}"
+								alt="Product Icon"
+								class="product-icon"
+							/>
+							<div class="product-card__img">
+								<img
+									src="{% if product5.get_main_image %}{{ product5.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Product"
+									class="product-image placeholder"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2 class="product-title">{{ product5.name }}</h2>
+								<h3 class="product-subtitle">{{ product5.barcodes }}</h3>
+								<div class="product-card__footer">
+									<p class="product-price">{{ product5.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Карточка 6 (маленькая) -->
+						<div class="product-card">
+							<div class="product-card__img">
+								<img
+									src="{% if product6.get_main_image %}{{ product6.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Product"
+									class="product-image placeholder"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2 class="product-title">{{ product6.name }}</h2>
+								<h3 class="product-subtitle">{{ product6.barcodes }}</h3>
+								<div class="product-card__footer">
+									<p class="product-price">{{ product6.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Карточка 7 (большая) -->
+						<div class="product-card large">
+							<img
+								src="{% static '/assets/icons/6.svg' %}"
+								alt="Product Icon"
+								class="product-icon"
+							/>
+							<div class="product-card__img">
+								<img
+									src="{% if product7.get_main_image %}{{ product7.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Product"
+									class="product-image placeholder"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2 class="product-title">{{ product7.name }}</h2>
+								<h3 class="product-subtitle">{{ product7.barcodes }}</h3>
+								<div class="product-card__footer">
+									<p class="product-price">{{ product7.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Карточка 8 (большая) -->
+						<div class="product-card large">
+							<img
+								src="{% static '/assets/icons/7.svg' %}"
+								alt="Product Icon"
+								class="product-icon"
+							/>
+							<div class="product-card__img">
+								<img
+									src="{% if product8.get_main_image %}{{ product8.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Product"
+									class="product-image placeholder"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2 class="product-title">{{ product8.name }}</h2>
+								<h3 class="product-subtitle">{{ product8.barcodes }}</h3>
+								<div class="product-card__footer">
+									<p class="product-price">{{ product8.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Пагинация -->
+					<div class="pagination">
+					  {# Левая стрелка — назад #}
+					  {% if page_obj.has_previous %}
+						<a href="?page={{ page_obj.previous_page_number }}">
+						  <button class="pagination-btn arrow"><</button>
+						</a>
+					  {% else %}
+						<button class="pagination-btn arrow" disabled><</button>
+					  {% endif %}
+
+					  {# Номера страниц (сокращённый вывод) #}
+					  {% for num in page_obj.paginator.page_range %}
+						{% if num == page_obj.number %}
+						  <button class="pagination-btn active">{{ num }}</button>
+						{% elif num >= page_obj.number|add:'-1' and num <= page_obj.number|add:'1' %}
+						  <a href="?page={{ num }}">
+							<button class="pagination-btn">{{ num }}</button>
+						  </a>
+						{% elif num == 1 or num == page_obj.paginator.num_pages %}
+						  <a href="?page={{ num }}">
+							<button class="pagination-btn">{{ num }}</button>
+						  </a>
+						{% elif num == page_obj.number|add:'-2' or num == page_obj.number|add:'2' %}
+						  <button class="pagination-btn" disabled>...</button>
+						{% endif %}
+					  {% endfor %}
+
+					  {# Правая стрелка — вперёд #}
+					  {% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}">
+						  <button class="pagination-btn arrow">></button>
+						</a>
+					  {% else %}
+						<button class="pagination-btn arrow" disabled>></button>
+					  {% endif %}
+					</div>
+
+				</div>
+			</div>
+		</section>
+{% endblock %}
+{% block js %}
+<script src="{% static './js/layout/layout-header.js' %}"></script>
+<script src="{% static './js/layout/layout-footer.js' %}"></script>
+{% endblock %}

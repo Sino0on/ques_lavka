@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Home Page</title>
+		{% block links %}{% endblock %}
+		<link rel="stylesheet" href="{% static './css/layout/footer_layout.css' %}" />
+		<link rel="stylesheet" href="{% static './css/layout/header_layout.css' %}" />
+	</head>
+	<body>
+		<div>
+<!--			<header>-->
+<!--				<div class="header-shadow">-->
+<!--					<div class="header-container">-->
+<!--						<div class="header-inner">-->
+<!--							<div class="header-content">-->
+<!--								&lt;!&ndash; Left section &ndash;&gt;-->
+<!--								<div class="header-left">-->
+<!--									<div class="burger-menu-container hidden lg-block">-->
+<!--										<div class="burger-container">-->
+<!--											<div class="burger-button">-->
+<!--												<span class="burger-line"></span>-->
+<!--												<span class="burger-line"></span>-->
+<!--												<span class="burger-line"></span>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--									</div>-->
+
+<!--									<div class="mobile-header">-->
+<!--										<div class="burger-container">-->
+<!--											<div class="burger-button">-->
+<!--												<span class="burger-line"></span>-->
+<!--												<span class="burger-line"></span>-->
+<!--												<span class="burger-line"></span>-->
+<!--											</div>-->
+<!--										</div>-->
+
+<!--										<a href="/" class="logo-mobile">-->
+<!--											<img src="{% static '/assets/Header/logo.svg' %}" alt="Logo">-->
+<!--										</a>-->
+
+<!--										<img src="{% static '/assets/Header/search.svg' %}" alt="Search" class="search-icon mobile-search-trigger">-->
+<!--									</div>-->
+
+<!--									<div class="contact-info">-->
+<!--										<div class="contact-item">-->
+<!--											<img src="{% static '/assets/Header/pin.svg' %}" alt="Location">-->
+<!--											<a href="https://go.2gis.com/cshfg" target="_blank" rel="noopener noreferrer" class="contact-text">-->
+<!--												Проспект Чуй,132-->
+<!--											</a>-->
+<!--										</div>-->
+
+<!--										<div class="contact-item">-->
+<!--											<img src="{% static '/assets/Header/phone.svg' %}" alt="Phone">-->
+<!--											<a href="tel:+996504003033" class="contact-text">-->
+<!--												+996 504-00-30-33-->
+<!--											</a>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
+
+<!--								&lt;!&ndash; Center section &ndash;&gt;-->
+<!--								<a href="{% url 'home' %}" class="logo">-->
+<!--									<img src="{% static '/assets/Header/logo.svg' %}" alt="Logo">-->
+<!--								</a>-->
+
+<!--								&lt;!&ndash; Right section &ndash;&gt;-->
+<!--								<div class="header-right">-->
+<!--									<div class="search-container">-->
+<!--										<input type="text" placeholder="Введите поисковой запрос..." class="search-input">-->
+<!--										<img src="{% static '/assets/Header/search.svg' %}" alt="Search" class="search-icon desktop-search-trigger">-->
+<!--									</div>-->
+
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+
+<!--				&lt;!&ndash; Burger menu content &ndash;&gt;-->
+<!--				<div class="burger-menu">-->
+<!--					<div class="burger-content">-->
+<!--						&lt;!&ndash; Mobile Menu &ndash;&gt;-->
+<!--						<ul class="mobile-menu">-->
+<!--							<li><a href="{% url 'catalog' %}">Новинки</a></li>-->
+<!--							<li><a href="{% url 'categories' %}">Категории</a></li>-->
+<!--							<li><a href="{% url 'catalog' %}">Каталог</a></li>-->
+<!--							<li><a href="{% url 'about' %}">О магазине</a></li>-->
+<!--							<li><a href="{% url 'catalog' %}">Акции</a></li>-->
+<!--							<li><a href="{% url 'contact' %}">Контакты</a></li>-->
+<!--						</ul>-->
+
+<!--						&lt;!&ndash; Desktop Menu &ndash;&gt;-->
+<!--						<div class="desktop-menu">-->
+<!--							<ul class="menu-column">-->
+<!--								<li><a href="{% url 'catalog' %}">Новинки</a></li>-->
+<!--								<li><a href="{% url 'categories' %}">Категории</a></li>-->
+<!--								<li><a href="{% url 'catalog' %}">Каталог</a></li>-->
+<!--								<li><a href="{% url 'about' %}">О магазине</a></li>-->
+<!--								<li><a href="{% url 'catalog' %}">Акции</a></li>-->
+<!--							</ul>-->
+
+<!--							<ul class="menu-column">-->
+<!--								<li><a href="{% url 'contact' %}">Контакты</a></li>-->
+<!--							</ul>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+
+<!--				&lt;!&ndash; Mobile search panel &ndash;&gt;-->
+<!--				<div class="mobile-search-panel">-->
+<!--					<button type="button" class="mobile-search-back">&lt;</button>-->
+<!--					<div class="flex items-center justify-center mt-20">-->
+<!--						<input type="text" placeholder="Введите поисковой запрос..." class="mobile-search-input">-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</header>-->
+			 <header>
+			<div class="header-shadow">
+				<div class="header-container">
+					<div class="header-inner">
+						<div class="header-content">
+							<!-- Left section -->
+							<div class="header-left">
+								<div class="burger-menu-container hidden lg-block">
+									<div class="burger-container">
+										<div class="burger-button">
+											<span class="burger-line"></span>
+											<span class="burger-line"></span>
+											<span class="burger-line"></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="mobile-header">
+									<div class="burger-container">
+										<div class="burger-button">
+											<span class="burger-line"></span>
+											<span class="burger-line"></span>
+											<span class="burger-line"></span>
+										</div>
+									</div>
+
+									<a href="/ques-html/index.html" class="logo-mobile">
+										<img src="{% static './assets/Header/logo.svg' %}" alt="Logo" />
+									</a>
+
+									<img
+										src="{% static './assets/Header/search.svg' %}"
+										alt="Search"
+										class="search-icon mobile-search-trigger"
+									/>
+								</div>
+
+								<div class="contact-info">
+									<div class="contact-item">
+										<img src="{% static './assets/Header/pin.svg' %}" alt="Location" />
+										<a
+											href="https://go.2gis.com/cshfg"
+											target="_blank"
+											rel="noopener noreferrer"
+											class="contact-text"
+										>
+											Проспект Чуй,132
+										</a>
+									</div>
+
+									<div class="contact-item">
+										<img src="{% static './assets/Header/phone.svg' %}" alt="Phone" />
+										<a href="tel:+996504003033" class="contact-text">
+											+996 504-00-30-33
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!-- Center section -->
+							<a href="{% url 'home' %}" class="logo">
+								<img src="{% static './assets/Header/logo.svg'%}" alt="Logo" />
+							</a>
+
+							<!-- Right section -->
+							<div class="header-right">
+								<div class="search-container">
+									<input
+										type="text"
+										placeholder="Введите поисковой запрос..."
+										class="search-input"
+									/>
+									<img
+										src="{% static './assets/Header/search.svg' %}"
+										alt="Search"
+										class="search-icon desktop-search-trigger"
+									/>
+								</div>
+								{% if user.is_authenticated %}
+								<img
+									src="{% static './assets/Header/bag.svg' %}"
+									alt="Bag"
+									class="bag-icon"
+									onclick="navigateTo('{% url 'basket' %}')"
+								/>
+								<img
+									src="{% static './assets/Header/heart.svg' %}"
+									alt="Heart"
+									class="heart-icon"
+									onclick="navigateTo('{% url 'favorites' %}')"
+								/>
+								<img
+									src="{% if user.avatar %}{{ user.avatar.url }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									alt="Avatar"
+									class="avatar"
+									onclick="navigateTo('{% url 'profile' %}')"
+								/>
+								{% else %}
+								<style>
+									.header__button {
+										 border: none;
+										 border-radius: 50px;
+										 padding: 8px 15px;
+										 background-color: #2c4ea5;
+										 color: white;
+										 font-size: 16px;
+										 cursor: pointer;
+										}
+
+										.header__button:hover {
+										 background-color: #4168c9;
+										 cursor: pointer;
+										}
+								</style>
+								<a href="{% url 'register' %}" class="header__button">Зарегистрироваться</a>
+								<a href="{% url 'login' %}" class="header__button">Войти</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Burger menu content -->
+			<div class="burger-menu">
+				<div class="burger-content">
+					<!-- Mobile Menu -->
+					<ul class="mobile-menu">
+						<li><a href="{% url 'home' %}">Новинки</a></li>
+						<li><a href="{% url 'categories' %}">Категории</a></li>
+						<li><a href="{% url 'catalog' %}">Каталог</a></li>
+						<li><a href="{% url 'about' %}">О магазине</a></li>
+						<li><a href="{% url 'catalog' %}">Акции</a></li>
+						<li><a href="{% url 'basket' %}">Корзина</a></li>
+						<li><a href="{% url 'about' %}#faq">Часто задаваемые вопросы</a></li>
+						<li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+						<li><a href="{% url 'contact' %}">Контакты</a></li>
+						<li><a href="{% url 'favorites' %}">Избранное</a></li>
+						<li><a href="{% url 'profile' %}">Доставка</a></li>
+					</ul>
+
+					<!-- Desktop Menu -->
+					<div class="desktop-menu">
+						<ul class="menu-column">
+							<li><a href="{% url 'catalog' %}">Новинки</a></li>
+							<li><a href="{% url 'categories' %}">Категории</a></li>
+							<li><a href="{% url 'catalog' %}">Каталог</a></li>
+							<li><a href="{% url 'about' %}">О магазине</a></li>
+							<li><a href="{% url 'catalog' %}">Акции</a></li>
+							<li><a href="{% url 'basket' %}">Корзина</a></li>
+						</ul>
+
+						<ul class="menu-column">
+							<li><a href="{% url 'about' %}#faq">Часто задаваемые вопросы</a></li>
+							<li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+							<li><a href="{% url 'contact' %}">Контакты</a></li>
+							<li><a href="{% url 'favorites' %}">Избранное</a></li>
+							<li><a href="{% url 'about' %}">Доставка</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Mobile search panel -->
+			<div class="mobile-search-panel">
+				<button type="button" class="mobile-search-back">&lt;</button>
+				<div class="flex items-center justify-center mt-20">
+					<input
+						type="text"
+						placeholder="Введите поисковой запрос..."
+						class="mobile-search-input"
+					/>
+				</div>
+			</div>
+		</header>
+		</div>
+
+
+          {% block content %}
+
+          {% endblock %}
+
+          <footer class="footer">
+			<div class="footer-container">
+				<img src="{% static './assets/icons/logoWhite.svg' %}" alt="Логотип" class="logo-footer" />
+
+				<ul class="footer-links">
+					<li><a href="{% url 'about' %}#faq">Часто задаваемые вопросы</a></li>
+					<li><a href="{% url 'catalog' %}">Каталог</a></li>
+					<li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+					<li><a href="{% url 'basket' %}">Корзина</a></li>
+				</ul>
+
+				<div class="footer-contacts">
+					<h3>Контакты</h3>
+					<a href="#" class="contact-item">
+						<img src="{% static './assets/icons/contactIcon.svg' %}" alt="" />
+						Телефон: 0 312 123456
+					</a>
+					<a href="#" class="contact-item">
+						<img src="{% static './assets/icons/location.svg' %}" alt="" />
+						Адрес: ул. пр. Чуй 132
+					</a>
+					<a class="contact-map" href="https://go.2gis.com/4401o6">
+						https://go.2gis.com/4401o6
+					</a>
+					<div class="social-links">
+						<a href="#"
+							><img src="{% static './assets/icons/instagramIcon.svg' %}" alt="Instagram"
+						/></a>
+						<a href="#"
+							><img src="{% static './assets/icons/tiktokIcon.svg' %}" alt="TikTok"
+						/></a>
+					</div>
+				</div>
+			</div>
+		</footer>
+<!--		<footer class="mobile-footer">-->
+<!--        <div class="container">-->
+<!--            <div class="footer-nav">-->
+<!--                <a href="/" class="nav-link">-->
+<!--                    <img src="{% static './assets/icons/homeIcon.svg' %}" alt="Home" class="nav-icon">-->
+<!--                    <img src="{% static './assets/icons/homeIconActive.svg' %}" alt="Home Active" class="nav-icon-active">-->
+<!--                </a>-->
+<!--                <a href="/favorites" class="nav-link">-->
+<!--                    <img src="{% static './assets/icons/favoriteIcon.svg' %}" alt="Favorites" class="nav-icon">-->
+<!--                    <img src="{% static './assets/icons/favoriteIconActive.svg' %}" alt="Favorites Active" class="nav-icon-active">-->
+<!--                </a>-->
+<!--                <a href="/shop" class="nav-link">-->
+<!--                    <img src="{% static './assets/icons/shopIcon.svg' %}" alt="Shop" class="nav-icon">-->
+<!--                    <img src="{% static './assets/icons/shopIconActive.svg' %}" alt="Shop Active" class="nav-icon-active">-->
+<!--                </a>-->
+<!--                <a href="/contacts" class="nav-link">-->
+<!--                    <img src="{% static './assets/icons/accountIcon.svg' %}" alt="Contacts" class="nav-icon">-->
+<!--                    <img src="{% static './assets/icons/accountIconActive.svg' %}" alt="Contacts Active" class="nav-icon-active">-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </footer>-->
+		{% block js %}
+		{% endblock %}
+		<script>// Burger menu functionality
+const burgerButtons = document.querySelectorAll('.burger-button')
+const burgerMenu = document.querySelector('.burger-menu')
+
+burgerButtons.forEach((button) => {
+	button.addEventListener('click', function () {
+		this.classList.toggle('active')
+		burgerMenu.classList.toggle('active')
+
+		// Toggle body overflow
+		if (this.classList.contains('active')) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'auto'
+		}
+	})
+})
+
+// Close menu when clicking on links
+const menuLinks = document.querySelectorAll('.mobile-menu a, .menu-column a')
+menuLinks.forEach((link) => {
+	link.addEventListener('click', function () {
+		burgerButtons.forEach((button) => button.classList.remove('active'))
+		burgerMenu.classList.remove('active')
+		document.body.style.overflow = 'auto'
+	})
+})
+
+// Search functionality
+const desktopSearchTrigger = document.querySelector('.desktop-search-trigger')
+const mobileSearchTrigger = document.querySelector('.mobile-search-trigger')
+const searchInput = document.querySelector('.search-input')
+const mobileSearchPanel = document.querySelector('.mobile-search-panel')
+const mobileSearchBack = document.querySelector('.mobile-search-back')
+
+if (desktopSearchTrigger) {
+	desktopSearchTrigger.addEventListener('click', function () {
+		searchInput.classList.toggle('active')
+	})
+}
+
+if (mobileSearchTrigger) {
+	mobileSearchTrigger.addEventListener('click', function () {
+		mobileSearchPanel.classList.add('active')
+		document.body.style.overflow = 'hidden'
+	})
+}
+
+if (mobileSearchBack) {
+	mobileSearchBack.addEventListener('click', function () {
+		mobileSearchPanel.classList.remove('active')
+		document.body.style.overflow = 'auto'
+	})
+}
+
+// Navigation function
+function navigateTo(path) {
+	window.location.href = path
+}
+
+// Close mobile search when route changes
+window.addEventListener('popstate', function () {
+	mobileSearchPanel.classList.remove('active')
+	document.body.style.overflow = 'auto'
+})
+</script>
+		<script src="{% static '/js/layout/layout-header.js' %}"></script>
+		<script src="{% static '/js/layout/layout-footer.js' %}"></script>
+	</body>
+</html>

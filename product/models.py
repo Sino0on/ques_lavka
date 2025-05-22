@@ -37,11 +37,19 @@ class Product(models.Model):
     variants_count = models.IntegerField(blank=True, null=True)
     is_serial_trackable = models.BooleanField(default=False)
 
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
 
 
     def __str__(self):
         return f"{self.name} ({self.code})"
+
+    @property
+    def get_main_image(self):
+        main_image = self.images.all().first()
+        if main_image:
+            return main_image.image.url
+
+        return None
 
 
 class ImageProduct(models.Model):
@@ -63,8 +71,8 @@ class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
-    class Meta:
-        unique_together = ('cart', 'product')
+    # class Meta:
+        # unique_together = ('cart', 'product')
 
     def __str__(self):
         return f"{self.product.name} x {self.quantity}"

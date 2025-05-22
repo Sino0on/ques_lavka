@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static './css/categories.css' %}" />
+<link rel="stylesheet" href="{% static './css/about.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+{% endblock %}
+{% block content %}
+
+		<section class="about">
+			<div class="container">
+				<div class="about__content">
+					<div class="about__shop">
+						<h1>О Магазине</h1>
+						<h2>О Бренде</h2>
+						<p>
+							Название ‘Ques’ происходит от английского слова ‘question’ —
+							‘вопрос’, что отражает нашу философию. Бренд Ques — это о том, как
+							сочетать эстетику и функциональность, как подарить радость и
+							вдохновение через вещи, которые окружают нас ежедневно. Мы верим,
+							что каждый вопрос — это начало пути к чему-то большему, к открытию
+							и решению. Когда человек приходит к нам, он часто задаётся
+							вопросом: ‘Что мне нужно, чтобы сделать свой дом уютнее?’ или ‘Где
+							найти идеальный подарок, который покажет заботу?’ Мы стремимся не
+							просто продать товар, а помочь найти ответ на этот вопрос
+						</p>
+					</div>
+					<div class="about__logo">
+						<img src="{% static './assets/img/about-img.png' %}" alt="about-img" />
+						<p>
+							Синий цвет логотипа символизирует безграничные возможности и
+							глубокую силу, отражая ассоциации с небом и океаном. Небо передает
+							ощущение свободы и перспектив, символизируя открытость к новым
+							горизонтам и идеям. Океан, со своей глубиной и мощью,
+							ассоциируется со спокойствием и стабильностью, но также скрывает в
+							себе потенциал и энергию для роста.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="faq" id='faq'>
+			<div class="container">
+				<div class="faq__content">
+					<h2>Часто задаваемые вопросы</h2>
+					{% for i in faq %}
+					<div class="faq__accordeon accordeon">
+						<div class="accordeon__top">
+							<span>{{ i.question }}</span>
+							<!-- По умолчанию откроем (active), поэтому иконка со "стрелкой" -->
+							<svg
+								width="40"
+								height="41"
+								viewBox="0 0 40 41"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M1.99855 26.0242L4.99805 28.8248L20.0007 14.0274L34.998 28.8301L37.9985 26.0307L20.0018 8.02745L1.99855 26.0242Z"
+									fill="#2C4EA5"
+								/>
+							</svg>
+						</div>
+						<div class="accordeon__content">
+							{{ i.answer|safe }}
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+
+{% endblock %}
+{% block js %}
+<script>
+	const iconPlus =
+		'M31.6688 22.6322H21.6688V32.6322H18.3354V22.6322H8.33545V19.2988H18.3354V9.29883H21.6688V19.2988H31.6688V22.6322Z'
+	const iconArrow =
+		'M1.99855 26.0242L4.99805 28.8248L20.0007 14.0274L34.998 28.8301L37.9985 26.0307L20.0018 8.02745L1.99855 26.0242Z'
+	const accordeonTops = document.querySelectorAll('.accordeon__top')
+	accordeonTops.forEach((top) => {
+		top.addEventListener('click', () => {
+			const parent = top.parentElement
+			const pathEl = top.querySelector('svg path')
+			parent.classList.toggle('active')
+			if (parent.classList.contains('active')) {
+				pathEl.setAttribute('d', iconArrow)
+			} else {
+				pathEl.setAttribute('d', iconPlus)
+			}
+		})
+	})
+</script>
+<script src="{% static '/js/layout/layout-header.js' %}"></script>
+{% endblock %}

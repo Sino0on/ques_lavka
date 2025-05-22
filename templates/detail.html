@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static '/css/detail.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+{% endblock %}
+{% block content %}
+
+
+
+		<section class="product-detail">
+			<div class="container">
+				<!-- Лоадер -->
+				<div class="loader-container" style="display: none">
+					<span class="loader"></span>
+				</div>
+
+				<!-- Контент товара -->
+				<div class="product-content">
+					<!-- Левая часть: Изображения -->
+					<div class="product-images">
+						<img
+							src="{% if product.get_main_image %}{{ product.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+							alt="Product Image"
+							class="product-main-image"
+						/>
+						<div class="product-thumbnails">
+<!--							<img-->
+<!--								src="{% static '/assets/Catalog/hit.png' %}"-->
+<!--								alt="Thumbnail 1"-->
+<!--								class="product-thumbnail"-->
+<!--							/>-->
+<!--							<img-->
+<!--								src="{% static '/assets/Catalog/hit.png' %}"-->
+<!--								alt="Thumbnail 2"-->
+<!--								class="product-thumbnail"-->
+<!--							/>-->
+<!--							<img-->
+<!--								src="{% static '/assets/Catalog/hit.png' %}"-->
+<!--								alt="Thumbnail 3"-->
+<!--								class="product-thumbnail"-->
+<!--							/>-->
+						</div>
+					</div>
+
+
+					<!-- Правая часть: Информация -->
+<!--					<div class="product-info">-->
+<!--						<h2 class="product-title">Название товара</h2>-->
+<!--						<p class="product-subtitle">Подзаголовок или описание</p>-->
+<!--						<div class="product-availability">-->
+<!--							<span class="availability-label">Наличие: </span>-->
+<!--							<span class="availability-status">Есть в наличии</span>-->
+<!--						</div>-->
+<!--						<div class="product-price">-->
+<!--							<h3>5000 сом</h3>-->
+<!--						</div>-->
+<!--						-->
+<!--					</div>-->
+<!--			</div>-->
+					<div class="product-info">
+						<h2 class="product-title">{{ product.name }}</h2>
+						<p class="product-subtitle">{{ product.barcodes }}</p>
+						<div class="product-availability">
+							<span class="availability-label">Наличие: </span>
+							<span class="availability-status">Есть в наличии</span>
+						</div>
+
+						<div class="product-price">
+							<h3>{{ product.sale_price|stringformat:"s"|slice:":-5" }} сом</h3>
+						</div>
+
+						<div class="product-add">
+							<div class="quantity-control">
+								<button class="quantity-btn">-</button>
+								<span class="quantity-value">1</span>
+								<button class="quantity-btn">+</button>
+							</div>
+							<a href="{% url 'add_cart' product.pk %}" class="add-to-cart-btn">Добавить в корзину</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Секция рекомендаций -->
+				<section class="recommendations">
+					<h2>Вам может понравиться</h2>
+					<div class="recommendations-grid">
+						{% for i in rec_products %}
+						<div class="recommendation-card">
+							<a href="{% url 'product_detail' i.pk %}">
+							<img
+								src="{% if i.get_main_image %}{{ i.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+								alt="Recommendation 1"
+								class="recommendation-image"
+							/>
+							<h3 class="recommendation-title">{{ i.name }}</h3>
+							<p class="recommendation-subtitle">{{ i.category }}</p>
+							<p class="recommendation-price">{{ i.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
+								</a>
+						</div>
+						{% endfor %}
+					</div>
+				</section>
+
+				<!-- Секция поддержки -->
+				<section class="support">
+					<div class="support-header">
+						<img
+							src="{% static '/assets/icons/question.svg' %}"
+							alt="Help Icon"
+							class="support-icon"
+						/>
+						<div class="support-text">
+							<span class="support-subtitle">нужна помощь?</span>
+							<p class="support-title">служба поддержки</p>
+						</div>
+					</div>
+					<div class="support-links">
+						<a href="/warranty" class="support-link">
+							<img
+								src="{% static '/assets/icons/warrantyIcon.svg' %}"
+								alt="Warranty Icon"
+								class="support-link-icon"
+							/>
+							<p>Гарантия качества продукции</p>
+						</a>
+						<a href="/bonuses" class="support-link">
+							<img
+								src="{% static '/assets/icons/cartIcon.svg' %}"
+								alt="Cart Icon"
+								class="support-link-icon"
+							/>
+							<p>Накопительные бонусы и акции</p>
+						</a>
+						<a href="/delivery" class="support-link">
+							<img
+								src="{% static '/assets/icons/kgIcon.svg' %}"
+								alt="Delivery Icon"
+								class="support-link-icon"
+							/>
+							<p>Доставка по всему Кыргызстану</p>
+						</a>
+					</div>
+				</section>
+			</div>
+		</section>
+{% endblock %}
+{% block js %}
+<script src="{% static '/js/filter.js' %}"></script>
+{% endblock %}

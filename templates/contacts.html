@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static './css/contacts.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+{% endblock %}
+{% block content %}
+
+
+		<section class="contacts">
+			<div class="container">
+				<div class="contacts-header">
+					<div class="contact-block">
+						<img
+							src="./assets/icons/calendarIcon.svg"
+							alt="Время работы"
+							class="contacts__icon"
+						/>
+						<a class="contact-link">10:00 - 21:00</a>
+						<p class="contact-text">Работаем ежедневно</p>
+					</div>
+
+					<div class="contact-block">
+						<img
+							src="./assets/icons/phoneBold.svg"
+							alt="Телефон"
+							class="contacts__icon"
+						/>
+						<a href="tel:+996706918918" class="contact-link"
+							>+996 706 918 918</a
+						>
+						<p class="contact-text">
+							Получить консультацию у наших специалистов
+						</p>
+					</div>
+
+					<div class="contact-block">
+						<img
+							src="./assets/icons/addresIcon.svg"
+							alt="Адрес"
+							class="contacts__icon"
+						/>
+						<a
+							href="https://go.2gis.com/cshfg"
+							target="_blank"
+							class="contact-link"
+							>Проспект Чуй 132</a
+						>
+						<p class="contact-text">Бишкек</p>
+					</div>
+
+					<div class="contact-block">
+						<img
+							src="./assets/icons/mailIcon.svg"
+							alt="Почта"
+							class="contacts__icon"
+						/>
+						<a href="mailto:sales@questore.one" class="contact-link"
+							>sales@questore.one</a
+						>
+						<p class="contact-text">
+							Получить консультацию у наших специалистов
+						</p>
+					</div>
+				</div>
+
+				<div class="content-grid">
+					<div class="map-container">
+						<iframe
+							id="map-frame"
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2923.8590544422004!2d74.594862076319!3d42.875818971149585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb7de8a4d2c9d%3A0x7303f9606d50ec14!2zMTMyINC_0YDQvtGB0L8uINCn0YPQuSwg0JHQuNGI0LrQtdC6!5e0!3m2!1sru!2skg!4v1733061698013!5m2!1sru!2skg"
+							allowfullscreen
+							loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade"
+						>
+						</iframe>
+					</div>
+
+					<form id="contact-form" class="contact-form">
+						<h2 class="form-title">У вас есть вопросы к нам?</h2>
+						<p class="form-description">
+							Наш менеджер свяжется с вами в ближайшее время
+						</p>
+
+						<input
+							type="text"
+							id="name"
+							placeholder="Имя"
+							class="form-input"
+							required
+						/>
+						<input
+							type="tel"
+							id="phone"
+							placeholder="Телефон"
+							class="form-input"
+							required
+						/>
+						<input
+							type="email"
+							id="email"
+							placeholder="Email"
+							class="form-input"
+							required
+						/>
+
+						<button type="submit" class="submit-btn">Отправить</button>
+					</form>
+				</div>
+			</div>
+
+			<script>
+				document
+					.getElementById('contact-form')
+					.addEventListener('submit', function (e) {
+						e.preventDefault()
+
+						const formData = {
+							name: document.getElementById('name').value,
+							phone: document.getElementById('phone').value,
+							email: document.getElementById('email').value,
+						}
+
+						console.log('Форма отправлена:', formData)
+						this.reset()
+					})
+			</script>
+		</section>
+{% endblock %}
+{% block js %}
+<script src="{% static './js/layout/layout-header.js' %}"></script>
+<script src="{% static './js/layout/layout-footer.js' %}"></script>
+{% endblock %}

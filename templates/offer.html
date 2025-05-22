@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static './css/offer.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+{% endblock %}
+{% block content %}
+
+
+
+		<section class="section">
+			<div class="container">
+				<!-- Header -->
+				<div class="header-container">
+					<div class="header-back">
+						<a href="{% url 'basket' %}" class="cursor-pointer">
+							<img
+								src="{% static './assets/icons/left-arrow.svg' %}"
+								class="w-8"
+								alt="Back"
+								width="32"
+							/>
+						</a>
+					</div>
+					<span class="header-title font-montserrat">Оформление заказа</span>
+					<div></div>
+				</div>
+
+				<!-- Form -->
+				<form class="form" id="order-form" method="post" action="">
+					<div class="form-sections">
+						<!-- Customer Information -->
+						<div class="form-section">
+							<div class="section-header">
+								<div class="section-number">1</div>
+								<h3 class="section-title">Информация о заказчике</h3>
+							</div>
+							<div>
+								<div class="form-group">
+									<label for="name" class="form-label">
+										Имя<span class="required">*</span>
+									</label>
+									<input
+										id="first_name"
+										name="first_name"
+										type="text"
+										placeholder="Имя"
+										class="form-input"
+										aria-describedby="name-error"
+										value="{{ user.first_name }}"
+									/>
+									<span id="name-error" class="error-text"></span>
+								</div>
+								{% csrf_token %}
+								<div class="form-group">
+									<label for="phone" class="form-label">
+										Телефон<span class="required">*</span>
+									</label>
+									<input
+										id="phone"
+										type="text"
+										name="phone"
+										placeholder="Телефон"
+										class="form-input"
+										value="{{ user.phone }}"
+									/>
+									<span id="phone-error" class="error-text"></span>
+								</div>
+								<div class="form-group">
+									<label for="email" class="form-label">
+										Почта<span class="required">*</span>
+									</label>
+									<input
+										id="email"
+										name="email"
+										type="email"
+										placeholder="example@gmail.com"
+										class="form-input"
+										value="{{ user.email }}"
+									/>
+									<span id="email-error" class="error-text"></span>
+								</div>
+							</div>
+						</div>
+
+						<!-- Address -->
+						<div class="form-section">
+							<div class="section-header">
+								<div class="section-number">2</div>
+								<h3 class="section-title">Адрес</h3>
+							</div>
+							<div>
+								<div class="form-group">
+									<label for="country" class="form-label">
+										Страна<span class="required">*</span>
+									</label>
+									<input
+										id="country"
+										type="text"
+										name="country"
+										placeholder="Кыргызстан"
+										class="form-input"
+										value="{{ user.country }}"
+									/>
+									<span id="country-error" class="error-text"></span>
+								</div>
+								<div class="form-group">
+									<label for="city" class="form-label">
+										Город<span class="required">*</span>
+									</label>
+									<input
+										id="city"
+										type="text"
+										name="city"
+										placeholder="Бишкек"
+										class="form-input"
+										value="{{ user.city }}"
+									/>
+									<span id="city-error" class="error-text"></span>
+								</div>
+								<div class="form-group">
+									<label for="address" class="form-label">
+										Адрес<span class="required">*</span>
+									</label>
+									<input
+										id="address"
+										type="text"
+										name="address"
+										placeholder="Номер дома и название улицы"
+										class="form-input"
+										value="{{ user.address }}"
+									/>
+									<span id="address-error" class="error-text"></span>
+								</div>
+							</div>
+						</div>
+
+						<!-- Additional Info -->
+						<div class="form-section">
+							<div class="section-header">
+								<div class="section-number">3</div>
+								<h3 class="section-title">Дополнительно</h3>
+							</div>
+							<div>
+								<div class="form-group">
+									<label for="comment" class="form-label">Примечание</label>
+									<input
+										id="comment"
+										type="text"
+										name="comment"
+										placeholder="Необязательно"
+										class="form-input"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="promo_code" class="form-label">Промокод</label>
+									<input
+										id="promo_code"
+										name="promo_code"
+										type="text"
+										placeholder="Ввести код"
+										class="form-input"
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Form Footer -->
+					<div class="footer-container">
+						<div class="terms-container">
+							<p class="terms-text">
+								Ваши персональные данные будут использоваться для обработки
+								вашего заказа, поддержки вашего использования на этом веб-сайте
+								и для других целей, описанных в нашем
+								<a href="#" class="link-underline"
+									>политика конфиденциальности</a
+								>
+							</p>
+							<div class="terms-checkbox-container">
+								<div class="checkbox-group">
+									<input
+										type="checkbox"
+										id="acceptTerms"
+										class="form-checkbox"
+									/>
+									<label for="acceptTerms" class="checkbox-label">
+										Я прочитал(а) и принимаю
+										<a href="#" class="link-underline">правила и условия</a>
+										сайта
+									</label>
+								</div>
+								<span id="acceptTerms-error" class="error-text"></span>
+							</div>
+						</div>
+						<button type="submit" class="submit-button font-montserrat">
+							Оформить заказ
+						</button>
+					</div>
+				</form>
+
+				<!-- Modal -->
+				<div class="modal" id="success-modal">
+					<div class="modal-content">
+						<h3 class="modal-title">Заказ успешно оформлен!</h3>
+						<button class="modal-button" onclick="closeModal()">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock %}
+{% block js %}
+<!--<script>-->
+<!--			// Form state-->
+<!--			const form = {-->
+<!--				name: '',-->
+<!--				email: '',-->
+<!--				phone: '',-->
+<!--				country: '',-->
+<!--				city: '',-->
+<!--				address: '',-->
+<!--				comment: '',-->
+<!--				promo_code: '',-->
+<!--				acceptTerms: false,-->
+<!--			}-->
+
+<!--			// Bind inputs to form state-->
+<!--			function bindInputs() {-->
+<!--				const inputs = [-->
+<!--					'name',-->
+<!--					'email',-->
+<!--					'phone',-->
+<!--					'country',-->
+<!--					'city',-->
+<!--					'address',-->
+<!--					'comment',-->
+<!--					'promo_code',-->
+<!--				]-->
+<!--				inputs.forEach((id) => {-->
+<!--					const input = document.getElementById(id)-->
+<!--					input.addEventListener('input', (e) => {-->
+<!--						form[id] = e.target.value-->
+<!--						clearError(id)-->
+<!--					})-->
+<!--				})-->
+
+<!--				const acceptTerms = document.getElementById('acceptTerms')-->
+<!--				acceptTerms.addEventListener('change', (e) => {-->
+<!--					form.acceptTerms = e.target.checked-->
+<!--					clearError('acceptTerms')-->
+<!--				})-->
+<!--			}-->
+
+<!--			// Clear error message-->
+<!--			function clearError(field) {-->
+<!--				const errorElement = document.getElementById(`${field}-error`)-->
+<!--				errorElement.textContent = ''-->
+<!--				errorElement.classList.remove('active')-->
+<!--			}-->
+
+<!--			// Validate form-->
+<!--			function validateForm() {-->
+<!--				const errors = {}-->
+<!--				if (!form.name) errors.name = 'Введите имя'-->
+<!--				if (!form.email) errors.email = 'Введите почту'-->
+<!--				if (!form.phone) errors.phone = 'Введите телефон'-->
+<!--				if (!form.country) errors.country = 'Введите страну'-->
+<!--				if (!form.city) errors.city = 'Введите город'-->
+<!--				if (!form.address) errors.address = 'Введите адрес'-->
+<!--				if (!form.acceptTerms) errors.acceptTerms = 'Вы должны принять условия'-->
+
+<!--				// Display errors-->
+<!--				Object.keys(errors).forEach((field) => {-->
+<!--					const errorElement = document.getElementById(`${field}-error`)-->
+<!--					errorElement.textContent = errors[field]-->
+<!--					errorElement.classList.add('active')-->
+<!--				})-->
+
+<!--				return Object.keys(errors).length === 0-->
+<!--			}-->
+
+<!--			// Handle form submission-->
+<!--			function handleSubmit(e) {-->
+<!--				e.preventDefault()-->
+<!--				if (validateForm()) {-->
+<!--					document.getElementById('success-modal').classList.add('active')-->
+<!--				}-->
+<!--			}-->
+
+<!--			// Close modal-->
+<!--			function closeModal() {-->
+<!--				document.getElementById('success-modal').classList.remove('active')-->
+<!--			}-->
+
+<!--			// Initialize-->
+<!--			document-->
+<!--				.getElementById('order-form')-->
+<!--				.addEventListener('submit', handleSubmit)-->
+<!--			bindInputs()-->
+<!--		</script>-->
+{% endblock %}

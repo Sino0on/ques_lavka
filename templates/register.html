@@ -1,0 +1,338 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static './css/register.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+<style>
+			header {
+				position: fixed;
+				top: 0;
+				width: 100%;
+			}
+		</style>
+{% endblock %}
+{% block content %}
+
+		<section class="auth">
+			<!-- Левая часть -->
+			<div class="auth__img">
+				<img src="{% static './assets/Auth/bg.png' %}" alt="Auth Background" />
+			</div>
+
+			<!-- Правая часть -->
+			<div class="auth__content">
+				<form action="." method="post">
+					<h2>Зарегистрироваться</h2>
+					<p class="text-gray-500">
+						Уже есть аккаунт?
+						<a
+							href="{% url 'login' %}"
+							class="text-blue-500"
+							onclick="switchView('login')"
+							>Войти</a
+						>
+					</p>
+
+					<div class="space-y-4">
+						<div class="input-group">
+							<label for="nickname">ФИО</label>
+							<input
+								type="text"
+								id="nickname"
+								name="first_name"
+								placeholder="Введите ваше фио"
+							/>
+							<ul class="validation-list">
+								{% if form.errors.first_name %}
+									{% for error in form.errors.first_name %}
+										<li>
+											<img
+											   alt=""
+											   src="{% static './assets/icons/close.svg' %}"
+											   class="validation-icon"
+											   width="12"
+											/>
+											{{ error }}
+										</li>
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+
+						<div class="input-group">
+							<label for="email">Email</label>
+							<input
+								type="email"
+								id="email"
+								name="email"
+								placeholder="Введите ваш email"
+							/>
+							<ul class="validation-list">
+								{% if form.errors.email %}
+									{% for error in form.errors.email %}
+										<li>
+											<img
+											   alt=""
+											   src="{% static './assets/icons/close.svg' %}"
+											   class="validation-icon"
+											   width="12"
+											/>
+											{{ error }}
+										</li>
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+
+						<div class="">
+							<label for="phone">Телефон</label>
+							<input
+								type="tel"
+								id="phone"
+								name="phone"
+								placeholder="Введите ваш телефон"
+							/>
+							<ul class="validation-list">
+								{% if form.errors.phone %}
+									{% for error in form.errors.phone %}
+										<li>
+											<img
+											   alt=""
+											   src="{% static './assets/icons/close.svg' %}"
+											   class="validation-icon"
+											   width="12"
+											/>
+											{{ error }}
+										</li>
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+
+						<div class="password-group">
+							<label for="password">Пароль</label>
+							<input
+								type="password"
+								id="password"
+								name="password1"
+								placeholder="Введите ваш пароль"
+								oninput="validatePassword()"
+								onfocus="togglePasswordFocus(true)"
+								onblur="togglePasswordFocus(false)"
+							/>
+							<img
+								alt=""
+								src="{% static './assets/icons/eye-offIcon.svg' %}"
+								class="password-toggle"
+								onclick="togglePasswordVisibility()"
+								id="toggleIcon"
+							/>
+
+							<ul class="validation-list">
+								{% if form.errors.password1 %}
+									{% for error in form.errors.password1 %}
+										<li>
+											<img
+											   alt=""
+											   src="{% static './assets/icons/close.svg' %}"
+											   class="validation-icon"
+											   width="12"
+											/>
+											{{ error }}
+										</li>
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+						<div class="password-group">
+							<label for="password">Повторите пароль</label>
+							<input
+								type="password"
+								id="password"
+								name="password2"
+								placeholder="Повторите пароль"
+								oninput="validatePassword()"
+								onfocus="togglePasswordFocus(true)"
+								onblur="togglePasswordFocus(false)"
+							/>
+							<img
+								alt=""
+								src="{% static './assets/icons/eye-offIcon.svg' %}"
+								class="password-toggle"
+								onclick="togglePasswordVisibility()"
+								id="toggleIcon"
+							/>
+							<ul class="validation-list">
+								{% if form.errors.password2 %}
+									{% for error in form.errors.password2 %}
+										<li>
+											<img
+											   alt=""
+											   src="{% static './assets/icons/close.svg' %}"
+											   class="validation-icon"
+											   width="12"
+											/>
+											{{ error }}
+										</li>
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+					{% csrf_token %}
+					<button type="submit" class="submit-btn">Зарегистрироваться</button>
+				</form>
+			</div>
+		</section>
+{% endblock %}
+{% block js %}
+<script>
+			const burgerButtons = document.querySelectorAll('.burger-button')
+			const burgerMenu = document.querySelector('.burger-menu')
+
+			burgerButtons.forEach((button) => {
+				button.addEventListener('click', function () {
+					this.classList.toggle('active')
+					burgerMenu.classList.toggle('active')
+
+					// Toggle body overflow
+					if (this.classList.contains('active')) {
+						document.body.style.overflow = 'hidden'
+					} else {
+						document.body.style.overflow = 'auto'
+					}
+				})
+			})
+
+			// Close menu when clicking on links
+			const menuLinks = document.querySelectorAll(
+				'.mobile-menu a, .menu-column a'
+			)
+			menuLinks.forEach((link) => {
+				link.addEventListener('click', function () {
+					burgerButtons.forEach((button) => button.classList.remove('active'))
+					burgerMenu.classList.remove('active')
+					document.body.style.overflow = 'auto'
+				})
+			})
+
+			// Search functionality
+			const desktopSearchTrigger = document.querySelector(
+				'.desktop-search-trigger'
+			)
+			const mobileSearchTrigger = document.querySelector(
+				'.mobile-search-trigger'
+			)
+			const searchInput = document.querySelector('.search-input')
+			const mobileSearchPanel = document.querySelector('.mobile-search-panel')
+			const mobileSearchBack = document.querySelector('.mobile-search-back')
+
+			if (desktopSearchTrigger) {
+				desktopSearchTrigger.addEventListener('click', function () {
+					searchInput.classList.toggle('active')
+				})
+			}
+
+			if (mobileSearchTrigger) {
+				mobileSearchTrigger.addEventListener('click', function () {
+					mobileSearchPanel.classList.add('active')
+					document.body.style.overflow = 'hidden'
+				})
+			}
+
+			if (mobileSearchBack) {
+				mobileSearchBack.addEventListener('click', function () {
+					mobileSearchPanel.classList.remove('active')
+					document.body.style.overflow = 'auto'
+				})
+			}
+
+			// Navigation function
+			function navigateTo(path) {
+				window.location.href = path
+			}
+
+			// Close mobile search when route changes
+			window.addEventListener('popstate', function () {
+				mobileSearchPanel.classList.remove('active')
+				document.body.style.overflow = 'auto'
+			})
+		</script>
+<script>
+	let isPasswordFocused = false
+	let passwordValidations = {
+		length: false,
+		symbol: false,
+	}
+
+	function togglePasswordVisibility() {
+		const passwordInput = document.getElementById('password')
+		const toggleIcon = document.getElementById('toggleIcon')
+
+		if (passwordInput.type === 'password') {
+			passwordInput.type = 'text'
+			toggleIcon.src = '../assets/icons/eye-onIcon.svg'
+		} else {
+			passwordInput.type = 'password'
+			toggleIcon.src = '../assets/icons/eye-offIcon.svg'
+		}
+	}
+
+	function validatePassword() {
+		const password = document.getElementById('password').value
+		const lengthValidation = document.getElementById('lengthValidation')
+		const symbolValidation = document.getElementById('symbolValidation')
+
+		// Проверка длины
+		passwordValidations.length = password.length >= 8
+		lengthValidation.querySelector('img').src = passwordValidations.length
+			? '../assets/icons/ok.svg'
+			: '../assets/icons/close.svg'
+		lengthValidation.style.color = passwordValidations.length
+			? 'black'
+			: 'red'
+
+		// Проверка специальных символов
+		passwordValidations.symbol = /[^a-zA-Zа-яА-ЯёЁ]/.test(password)
+		symbolValidation.querySelector('img').src = passwordValidations.symbol
+			? '../assets/icons/ok.svg'
+			: '../assets/icons/close.svg'
+		symbolValidation.style.color = passwordValidations.symbol
+			? 'black'
+			: 'red'
+
+		// Обновление стиля поля ввода
+		const passwordField = document.getElementById('password')
+		if (
+			isPasswordFocused &&
+			(!passwordValidations.length || !passwordValidations.symbol)
+		) {
+			passwordField.style.borderColor = 'red'
+		} else {
+			passwordField.style.borderColor = '#3b82f6'
+		}
+	}
+
+	function togglePasswordFocus(focused) {
+		isPasswordFocused = focused
+		validatePassword()
+	}
+
+	function switchView(view) {
+		// Реализация переключения между формами
+		console.log('Переключение на:', view)
+	}
+
+	function handleSubmit(event) {
+		event.preventDefault()
+		// Логика отправки формы
+		const formData = {
+			first_name: document.getElementById('nickname').value,
+			email: document.getElementById('email').value,
+			phone: document.getElementById('phone').value,
+			password1: document.getElementById('password').value,
+		}
+		console.log(formData)
+	}
+</script>
+{% endblock %}

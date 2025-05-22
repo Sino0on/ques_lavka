@@ -1,0 +1,154 @@
+.about__content {
+  display: flex;
+  align-items: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 40px;
+  color: #2c4ea5;
+  padding-top: 60px;
+}
+
+.about__shop h1 {
+  font-size: 64px;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.about__shop h2 {
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.about__shop p {
+  font-size: 30px;
+}
+
+.about__logo p {
+  font-size: 25px;
+}
+
+.about__shop {
+  width: 50%;
+}
+
+.about__logo {
+  width: 40%;
+}
+
+.about__logo img {
+  max-width: 100%;
+}
+
+.faq {
+  background: url(../assets//icons/faq-bg.svg) top no-repeat;
+  background-size: cover;
+  padding-top: 300px;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+}
+
+.faq h2 {
+  font-size: 64px;
+  color: #fff;
+  font-weight: 400;
+  margin-bottom: 120px;
+}
+
+.accordeon {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 30px;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+.accordeon__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.accordeon__content {
+  padding: 10px;
+  display: none;
+}
+
+.accordeon.active .accordeon__content {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .about__content {
+    flex-direction: column;
+  }
+
+  .about__shop {
+    width: auto;
+  }
+
+  .about__shop h1 {
+    text-align: center;
+    font-size: 40px;
+  }
+
+  .about__shop h2,
+  .about__shop p {
+    font-size: 30px;
+  }
+
+  .about__logo {
+    width: auto;
+  }
+
+  .about__logo p {
+    font-size: 30px;
+  }
+
+  .faq h2 {
+    font-size: 40px;
+  }
+
+  .accordeon {
+    font-size: 25px;
+    word-wrap: break-word;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .about__content {
+    flex-direction: column;
+  }
+
+  .about__shop {
+    width: auto;
+  }
+
+  .about__shop h1 {
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .about__shop h2,
+  .about__shop p {
+    font-size: 18px;
+  }
+
+  .about__logo {
+    width: auto;
+  }
+
+  .about__logo p {
+    font-size: 18px;
+  }
+
+  .faq h2 {
+    font-size: 22px;
+  }
+
+  .accordeon {
+    font-size: 18px;
+    word-wrap: break-word;
+  }
+}

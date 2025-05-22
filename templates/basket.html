@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static './css/basket.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+{% endblock %}
+{% block content %}
+
+
+
+
+
+
+		<section class="section">
+			<div class="container mx-auto px-4">
+				<!-- Header -->
+				<div class="header-container">
+					<div class="header-back">
+						<a href="#" class="cursor-pointer">
+							<img
+								src="{% static './assets/icons/left-arrow.svg' %}"
+								class="w-8"
+								alt="Back"
+								width="32"
+							/>
+						</a>
+					</div>
+					<span class="header-title font-montserrat">Список желаний</span>
+					<div></div>
+				</div>
+
+				<!-- Products -->
+				<div class="mx-auto">
+					<div class="product-list" id="product-list">
+						{% for i in products %}
+						<div class="product-item-desktop">
+                        <div class="product-image-container">
+                            <img src="{% if i.product.get_main_image %}{{ i.product.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+                                 alt=""
+                                 class="product-image" />
+                            <h3 class="product-title font-montserrat">{{ i.product.name }}</h3>
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-weight font-montserrat">{{ i.product.barcodes }}</h5>
+                            <div class="quantity-controls">
+                                <img src="{% static './assets/icons/minusIcon.svg' %}"
+                                     alt="Decrease"
+                                     class="quantity-icon"
+                                     onclick="navigateTo('{% url 'del_cart' i.product.id %}')" />
+                                <span class="quantity-text">{{ i.quantity }}</span>
+                                <img src="{% static './assets/icons/PlusIcon.svg' %}"
+                                     alt="Increase"
+                                     class="quantity-icon"
+									 onclick="navigateTo('{% url 'add_cart' i.product.id %}')" />
+                            </div>
+                            <h5 class="product-price font-montserrat">{{ i.product.sale_price|stringformat:"s"|slice:":-5" }} сом</h5>
+                            <img src="{% static './assets/icons/trashIcon.svg' %}"
+                                 alt="Remove"
+                                 class="remove-icon"
+                                 onclick="navigateTo('{% url 'del_cart' i.product.id %}')" />
+                        </div>
+                    </div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<!-- Total -->
+				<div class="total-container">
+					<div class="total-content">
+						<div class="total-text font-montserrat">
+							Общая сумма:
+							<span class="total-amount" id="total-sum">{{ summa|stringformat:"s"|slice:":-5" }} сом</span>
+						</div>
+						<a href="/offer" class="checkout-button font-montserrat"
+							>К оплате</a
+						>
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock %}
+{% block js %}
+<!--<script>-->
+<!--			const products = [-->
+<!--				{-->
+<!--					id: 1,-->
+<!--					title: 'Элегантные кольца из Стали',-->
+<!--					image: './assets/icons/kole.png',-->
+<!--					weight: '100мг',-->
+<!--					price: 200,-->
+<!--					quantity: 1,-->
+<!--				},-->
+<!--				{-->
+<!--					id: 15345,-->
+<!--					title: 'Элегантные кольца из Стали',-->
+<!--					image: './assets/icons/kole.png',-->
+<!--					weight: '100мг',-->
+<!--					price: 200,-->
+<!--					quantity: 1,-->
+<!--				},-->
+<!--				{-->
+<!--					id: 1212,-->
+<!--					title: 'Элегантные кольца из Стали',-->
+<!--					image: './assets/icons/kole.png',-->
+<!--					weight: '100мг',-->
+<!--					price: 200,-->
+<!--					quantity: 1,-->
+<!--				},-->
+<!--				{-->
+<!--					id: 198,-->
+<!--					title: 'Элегантные кольца из Стали',-->
+<!--					image: './assets/icons/kole.png',-->
+<!--					weight: '100мг',-->
+<!--					price: 200,-->
+<!--					quantity: 1,-->
+<!--				},-->
+<!--			]-->
+
+<!--			function renderProducts() {-->
+<!--				const productList = document.getElementById('product-list')-->
+<!--				productList.innerHTML = ''-->
+
+<!--				products.forEach((product) => {-->
+<!--					// Desktop View-->
+<!--					const desktopItem = `-->
+<!--                    <div class="product-item-desktop">-->
+<!--                        <div class="product-image-container">-->
+<!--                            <img src="${-->
+<!--															product.image ||-->
+<!--															'https://via.placeholder.com/300x200?text=Нет+картинки'-->
+<!--														}"-->
+<!--                                 alt="${product.title}"-->
+<!--                                 class="product-image" />-->
+<!--                            <h3 class="product-title font-montserrat">${-->
+<!--															product.title-->
+<!--														}</h3>-->
+<!--                        </div>-->
+<!--                        <div class="product-info">-->
+<!--                            <h5 class="product-weight font-montserrat">${-->
+<!--															product.weight-->
+<!--														}</h5>-->
+<!--                            <div class="quantity-controls">-->
+<!--                                <img src="./assets/icons/minusIcon.svg"-->
+<!--                                     alt="Decrease"-->
+<!--                                     class="quantity-icon"-->
+<!--                                     onclick="updateQuantity(${-->
+<!--																				product.id-->
+<!--																			}, -1)" />-->
+<!--                                <span class="quantity-text">${-->
+<!--																	product.quantity-->
+<!--																}</span>-->
+<!--                                <img src="./assets/icons/PlusIcon.svg"-->
+<!--                                     alt="Increase"-->
+<!--                                     class="quantity-icon"-->
+<!--                                     onclick="updateQuantity(${-->
+<!--																				product.id-->
+<!--																			}, 1)" />-->
+<!--                            </div>-->
+<!--                            <h5 class="product-price font-montserrat">${-->
+<!--															product.price-->
+<!--														} COM</h5>-->
+<!--                            <img src="./assets/icons/trashIcon.svg"-->
+<!--                                 alt="Remove"-->
+<!--                                 class="remove-icon"-->
+<!--                                 onclick="removeProduct(${product.id})" />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                `-->
+
+<!--					// Mobile View-->
+<!--					const mobileItem = `-->
+<!--                    <div class="product-item-mobile">-->
+<!--                        <img src="${-->
+<!--													product.image ||-->
+<!--													'https://via.placeholder.com/300x200?text=Нет+картинки'-->
+<!--												}"-->
+<!--                             alt="${product.title}"-->
+<!--                             class="product-image-mobile" />-->
+<!--                        <div class="product-info-mobile">-->
+<!--                            <div class="product-header-mobile">-->
+<!--                                <div class="product-details-mobile">-->
+<!--                                    <h3 class="product-title-mobile font-montserrat">${-->
+<!--																			product.title-->
+<!--																		}</h3>-->
+<!--                                    <h5 class="product-weight-mobile font-montserrat">${-->
+<!--																			product.weight-->
+<!--																		}</h5>-->
+<!--                                </div>-->
+<!--                                <img src="./assets/icons/trashIcon.svg"-->
+<!--                                     alt="Remove"-->
+<!--                                     class="remove-icon-mobile"-->
+<!--                                     onclick="removeProduct(${product.id})" />-->
+<!--                            </div>-->
+<!--                            <div class="product-footer-mobile">-->
+<!--                                <h5 class="product-price-mobile font-montserrat">${-->
+<!--																	product.price-->
+<!--																} COM</h5>-->
+<!--                                <div class="quantity-controls">-->
+<!--                                    <img src="./assets/icons/minusIcon.svg"-->
+<!--                                         alt="Decrease"-->
+<!--                                         class="quantity-icon-mobile"-->
+<!--                                         onclick="updateQuantity(${-->
+<!--																						product.id-->
+<!--																					}, -1)" />-->
+<!--                                    <span class="quantity-text">${-->
+<!--																			product.quantity-->
+<!--																		}</span>-->
+<!--                                    <img src="./assets/icons/PlusIcon.svg"-->
+<!--                                         alt="Increase"-->
+<!--                                         class="quantity-icon-mobile"-->
+<!--                                         onclick="updateQuantity(${-->
+<!--																						product.id-->
+<!--																					}, 1)" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                `-->
+
+<!--					productList.innerHTML += desktopItem + mobileItem-->
+<!--				})-->
+
+<!--				updateTotal()-->
+<!--			}-->
+
+<!--			function updateQuantity(id, change) {-->
+<!--				const product = products.find((p) => p.id === id)-->
+<!--				if (product) {-->
+<!--					const newQuantity = product.quantity + change-->
+<!--					if (newQuantity >= 1) {-->
+<!--						product.quantity = newQuantity-->
+<!--						renderProducts()-->
+<!--					}-->
+<!--				}-->
+<!--			}-->
+
+<!--			function removeProduct(id) {-->
+<!--				const index = products.findIndex((p) => p.id === id)-->
+<!--				if (index !== -1) {-->
+<!--					products.splice(index, 1)-->
+<!--					renderProducts()-->
+<!--				}-->
+<!--			}-->
+
+<!--			function updateTotal() {-->
+<!--				const total = products.reduce(-->
+<!--					(sum, product) => sum + product.price * product.quantity,-->
+<!--					0-->
+<!--				)-->
+<!--				document.getElementById('total-sum').textContent = `${total} сом`-->
+<!--			}-->
+
+<!--			// Initial render-->
+<!--			renderProducts()-->
+<!--		</script>-->
+{% endblock %}
+

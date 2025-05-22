@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+
+<link rel="stylesheet" href="{% static './css/profile.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+<style>
+			.footer {
+				position: fixed;
+				width: 100%;
+				bottom: 0;
+			}
+		</style>
+{% endblock %}
+{% block content %}
+
+		<section class="profile">
+			<div class="container">
+				<div class="profile__content">
+					<!-- Верхняя секция -->
+					<div class="profile__top">
+						<div class="profile__user">
+							<img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}" alt="Profile" />
+							<div class="profile__user-info">
+								<h2>{{ user.first_name }}</h2>
+								<p>{{ user.email }}</p>
+							</div>
+						</div>
+						<div class="profile__logout">
+							<img
+								src="{% static './assets/icons/exitIcon.svg' %}"
+								onclick="showModal()"
+								alt="Exit"
+							/>
+						</div>
+					</div>
+
+					<!-- Нижняя секция -->
+					<div class="profile__bottom">
+						<div
+							class="profile__bottom-box"
+							onclick="navigateTo('{% url 'orders' %}')"
+						>
+							<img
+								src="{% static './assets/icons/orderIcon.svg' %}"
+								class="desktop-icon"
+								alt=""
+							/>
+							<img
+								src="{% static './assets/icons/whiteCart.svg' %}"
+								class="mobile-icon"
+								alt=""
+							/>
+							<p>Заказы</p>
+						</div>
+
+						<div
+							class="profile__bottom-box"
+							onclick="navigateTo('{% url 'address' %}')"
+						>
+							<img src="{% static './assets/icons/loc.svg' %}" class="desktop-icon" alt="" />
+							<img
+								src="{% static './assets/icons/whiteLocation.svg' %}"
+								class="mobile-icon"
+								alt=""
+							/>
+							<p>Адрес</p>
+						</div>
+
+						<div
+							class="profile__bottom-box"
+							onclick="navigateTo('{% url 'profile' %}')"
+						>
+							<img
+								src="{% static './assets/icons/account.svg' %}"
+								class="desktop-icon"
+								alt=""
+							/>
+							<img
+								src="{% static './assets/icons/whiteAccount.svg' %}"
+								class="mobile-icon"
+								alt=""
+							/>
+							<p>Аккаунт</p>
+						</div>
+
+						<div
+							class="profile__bottom-box mobile-logout"
+							onclick="showModal()"
+						>
+							<img src="./assets/icons/exitIcon2.svg" alt="" />
+							<p>Выйти</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Модальное окно -->
+			<div id="modal" class="modal">
+				<div class="modal-content">
+					<h2 class="modal-header">Вы уверены, что хотите выйти?</h2>
+					<div class="modal-footer">
+						<button class="modal-button border-blue" onclick="hideModal()">
+							Отмена
+						</button>
+						<button
+							class="modal-button bg-blue"
+							onclick="navigateTo('{% url 'logout' %}')"
+						>
+							Выйти
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock %}
+{% block js %}
+<script>
+			function showModal() {
+				document.getElementById('modal').style.display = 'flex'
+			}
+
+			function hideModal() {
+				document.getElementById('modal').style.display = 'none'
+			}
+
+			// Закрытие модального окна при клике вне его
+			window.onclick = function (event) {
+				const modal = document.getElementById('modal')
+				if (event.target === modal) {
+					hideModal()
+				}
+			}
+		</script>
+{% endblock %}
+

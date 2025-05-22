@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+					sans-serif;
+			}
+
+			.container {
+				width: 100%;
+				max-width: 1440px;
+				margin: 0 auto;
+				padding: 0 15px;
+			}
+
+			.favorites {
+				min-height: 100vh;
+				padding-bottom: 3.5rem;
+				background-color: white;
+			}
+
+			.header-section {
+				position: relative;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: 2rem 0;
+			}
+
+			.arrow-container {
+				position: absolute;
+				left: 0;
+			}
+
+			.title {
+				font-size: 2.5rem;
+				font-weight: 500;
+				text-align: center;
+			}
+
+			.products-grid {
+				display: grid;
+				grid-template-columns: repeat(1, 1fr);
+				gap: 1.5rem;
+				padding: 1rem 0;
+			}
+
+			.product-card {
+				background: #f1f1f1;
+				border-radius: 0.5rem;
+				overflow: hidden;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				transition: transform 0.3s ease;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding-bottom: 20px;
+			}
+
+			.product-card:hover {
+				transform: scale(1.05);
+			}
+
+			.card-content {
+				padding: 1rem;
+				display: flex;
+				gap: 1rem;
+			}
+
+			.product-image {
+				width: 25%;
+				border: 2px solid #2c4ea5;
+				border-radius: 0.5rem;
+				overflow: hidden;
+			}
+
+			.product-image img {
+				width: 100%;
+				/* height: 94px; */
+				object-fit: cover;
+			}
+
+			.product-info {
+				width: 75%;
+				position: relative;
+				padding-left: 1rem;
+			}
+
+			.product-title {
+				font-size: 1.125rem;
+				font-weight: 600;
+				color: #374151;
+				margin-right: 2rem;
+			}
+
+			.product-card .heart-icon {
+				position: absolute;
+				top: 0.5rem;
+				right: 0.5rem;
+				width: 1.5rem;
+				cursor: pointer;
+			}
+
+			.volume {
+				color: #4f4f4f;
+				font-size: 0.875rem;
+				margin-top: 0.5rem;
+			}
+
+			.price {
+				font-size: 1.25rem;
+				font-weight: 700;
+				color: #1f2937;
+				margin-top: 1rem;
+			}
+
+			.add-button {
+				width: 95%;
+				background: #2c4ea5;
+				color: white;
+				padding: 0.75rem;
+				border: none;
+				border-radius: 0.75rem;
+				cursor: pointer;
+				transition: opacity 0.3s ease;
+			}
+
+			.add-button:hover {
+				opacity: 0.9;
+			}
+
+			@media (min-width: 640px) {
+				.products-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+
+				.container {
+					padding: 0 20px;
+				}
+			}
+
+			@media (min-width: 1024px) {
+				.container {
+					padding: 0 40px;
+				}
+
+				.products-grid {
+					grid-template-columns: repeat(3, 1fr);
+				}
+
+				.title {
+					font-size: 3.5rem;
+				}
+			}
+
+			@media (max-width: 600px) {
+				.title {
+					font-size: 2rem;
+				}
+			}
+
+			@media (max-width: 415px) {
+				.title {
+					font-size: 1.75rem;
+				}
+			}
+		</style>
+
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+{% endblock %}
+{% block content %}
+
+		<section class="favorites">
+			<div class="container">
+				<div class="header-section">
+					<div class="arrow-container">
+						<img
+							src="{% static './assets/icons/left-arrow.svg' %}"
+							alt="Back"
+							width="32px"
+							class="cursor-pointer"
+						/>
+					</div>
+					<h1 class="title">Список желаний</h1>
+				</div>
+
+				<div class="products-grid">
+					<!-- Повторить этот блок для каждого товара -->
+					{% for i in user.favorites.all %}
+
+					<div class="product-card">
+
+						<div class="card-content">
+
+							<div class="product-image">
+								<a href="{% url 'product_detail' i.product.pk %}">
+								<img src="{% if i.product.get_main_image %}{{ i.product.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}" alt="Product image" />
+									</a>
+							</div>
+
+							<div class="product-info">
+								<a href="{% url 'del_fav' i.pk %}">
+									<img
+										src="{% static './assets/icons/activeheart.svg' %}"
+										alt="Like"
+										class="heart-icon"
+									/>
+								</a>
+								<a href="{% url 'product_detail' i.product.pk %}">
+									<h3 class="product-title">{{ i.product.name }}</h3>
+									<p class="volume">{{ i.product.barcodes }}</p>
+									<p class="price">{{ i.product.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
+								</a>
+							</div>
+						</div>
+
+						<a href="{% url 'add_cart' i.product.pk %}" class="add-button">Добавить в корзину</a>
+					</div>
+					{% endfor %}
+
+					<!-- Добавить остальные 8 товаров аналогичным образом -->
+				</div>
+			</div>
+		</section>
+		{% endblock %}
+{% block js %}
+<script src="{% static './js/layout/layout-header.js' %}"></script>
+<script src="{% static './js/layout/layout-footer.js' %}"></script>
+{% endblock %}

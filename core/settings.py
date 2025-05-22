@@ -45,15 +45,17 @@ PROJECT_APPS = [
 
 DJANGO_APPS = [
     'authentication',
-    'product'
+    'product',
+    'mysite'
 ]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    "rest_framework_simplejwt",
+    # "rest_framework_simplejwt",
     "django_filters",
     "corsheaders",
     "drf_spectacular",
+    'ckeditor',
 ]
 
 INSTALLED_APPS = [*DJANGO_APPS, *THIRD_PARTY_APPS, *PROJECT_APPS]
@@ -76,7 +78,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -151,9 +153,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "static/"
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "apps/static"),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="").split(',')
 
@@ -171,64 +173,64 @@ MEDIA_URL = "/media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
-    ],
-    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_RENDERER_CLASSES": [
-        "rest_framework.renderers.JSONRenderer",
-    ],
-    'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.MultiPartParser',
-        'rest_framework.parsers.FormParser'
-    ),
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "TEST_REQUEST_DEFAULT_FORMAT": "json",
-    "DEFAULT_THROTTLE_RATES": {
-        "auth": '3/min',
-    }
-}
-
-if DEBUG:
-    REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"].append("rest_framework.authentication.BasicAuthentication")
+# REST_FRAMEWORK = {
+#     "DEFAULT_AUTHENTICATION_CLASSES": [
+#         "rest_framework.authentication.TokenAuthentication",
+#         "rest_framework_simplejwt.authentication.JWTAuthentication",
+#     ],
+#     "DEFAULT_PERMISSION_CLASSES": [
+#         "rest_framework.permissions.IsAuthenticated",
+#     ],
+#     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+#     "DEFAULT_RENDERER_CLASSES": [
+#         "rest_framework.renderers.JSONRenderer",
+#     ],
+#     'DEFAULT_PARSER_CLASSES': (
+#         'rest_framework.parsers.JSONParser',
+#         'rest_framework.parsers.MultiPartParser',
+#         'rest_framework.parsers.FormParser'
+#     ),
+#     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+#     "TEST_REQUEST_DEFAULT_FORMAT": "json",
+#     "DEFAULT_THROTTLE_RATES": {
+#         "auth": '3/min',
+#     }
+# }
+#
+# if DEBUG:
+#     REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"].append("rest_framework.authentication.BasicAuthentication")
 
 # OpenAPI settings
-
-SPECTACULAR_SETTINGS = {
-    "TITLE": "Ques-Lavka OpenAPI",
-    "DESCRIPTION": "Описание нашего API в разработке...",
-    'COMPONENT_SPLIT_REQUEST': True,
-    "VERSION": "1.0.0",
-    "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
-    "SERVE_PERMISSIONS": ("rest_framework.permissions.IsAdminUser", ),
-    "SERVE_AUTHENTICATION": ('rest_framework.authentication.SessionAuthentication',
-                             'rest_framework.authentication.BasicAuthentication'),
-    "PREPROCESSING_HOOKS": ("openapi.preprocessors.get_urls_preprocessor",),
-    "SWAGGER_UI_SETTINGS": {
-        "docExpansion": "none",  # 'none' | 'list' | 'full'
-    },
-    "ENUM_NAME_OVERRIDES": {
-        "RatingsEnum": "apps.autoanswers.models.RatingChoices",
-        "CountMonthsEnum": "api.billing.serializers.PeriodChoices",
-    },
-    "SERVE_PERMISSIONS": ("rest_framework.permissions.AllowAny",)
-}
-
-
-SIMPLE_JWT = {
-    "AUTH_HEADER_TYPES": ("Bearer",),
-    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "UPDATE_LAST_LOGIN": True,
-    "ROTATE_REFRESH_TOKENS": True,
-}
+#
+# SPECTACULAR_SETTINGS = {
+#     "TITLE": "Ques-Lavka OpenAPI",
+#     "DESCRIPTION": "Описание нашего API в разработке...",
+#     'COMPONENT_SPLIT_REQUEST': True,
+#     "VERSION": "1.0.0",
+#     "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
+#     "SERVE_PERMISSIONS": ("rest_framework.permissions.IsAdminUser", ),
+#     "SERVE_AUTHENTICATION": ('rest_framework.authentication.SessionAuthentication',
+#                              'rest_framework.authentication.BasicAuthentication'),
+#     "PREPROCESSING_HOOKS": ("openapi.preprocessors.get_urls_preprocessor",),
+#     "SWAGGER_UI_SETTINGS": {
+#         "docExpansion": "none",  # 'none' | 'list' | 'full'
+#     },
+#     "ENUM_NAME_OVERRIDES": {
+#         "RatingsEnum": "apps.autoanswers.models.RatingChoices",
+#         "CountMonthsEnum": "api.billing.serializers.PeriodChoices",
+#     },
+#     "SERVE_PERMISSIONS": ("rest_framework.permissions.AllowAny",)
+# }
+#
+#
+# SIMPLE_JWT = {
+#     "AUTH_HEADER_TYPES": ("Bearer",),
+#     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+#     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+#     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+#     "UPDATE_LAST_LOGIN": True,
+#     "ROTATE_REFRESH_TOKENS": True,
+# }
 
 # Email settings
 EMAIL_BACKEND = config('EMAIL_BACKEND')

@@ -1,0 +1,475 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static './css/home.css' %}" />
+{% endblock %}
+{% block content %}
+		<div>
+			<!-- Navbar -->
+			<section class="navbar">
+				<div class="container">
+					<ul>
+						<li><a href="{% url 'catalog' %}">НОВИНКИ</a></li>
+						<li><a href="{% url 'categories' %}">КАТЕГОРИИ</a></li>
+						<li><a href="{% url 'catalog' %}">КАТАЛОГ</a></li>
+						<li><a href="{% url 'about' %}">О МАГАЗИНЕ</a></li>
+						<li><a href="{% url 'catalog' %}">АКЦИИ</a></li>
+					</ul>
+				</div>
+			</section>
+
+			<!-- Hero Slider -->
+			<section>
+				<div class="hero__row">
+					<div class="hero__image-container">
+						<p>ВЕСЕННИЕ СКИДКИ ДО -50%</p>
+						<img src="{% static './assets/img/hero.png' %}" alt="Слайд 1" />
+						<div class="overlay"></div>
+					</div>
+					<button class="hero__button">
+						<p>ПЕРЕЙТИ К АКЦИИ</p>
+						<img src="{% static './assets/icons/arrowSwiper.svg' %}" alt="Arrow" />
+					</button>
+				</div>
+			</section>
+
+			<!-- Bestsellers -->
+			<section>
+				<div class="container">
+					<h2 class="section-title">БЕСТСЕЛЛЕРЫ</h2>
+					<div class="bestsellers-grid">
+						<div class="grid-item">
+							<img src="{% if site.best_category1.image %}{{ site.best_category1.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ site.best_category1.name }}</button>
+						</div>
+						<div class="grid-item">
+							<img src="{% if site.best_category2.image %}{{ site.best_category2.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ site.best_category2.name }}</button>
+						</div>
+						<div class="grid-item">
+							<img src="{% if site.best_category3.image %}{{ site.best_category3.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ site.best_category3.name }}</button>
+						</div>
+					</div>
+					<div class="bestsellers-bottom">
+						<div class="grid-item">
+							<img src="{% if site.best_category4.image %}{{ site.best_category4.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ site.best_category4.name }}</button>
+						</div>
+						<div class="grid-item">
+							<img src="{% if site.best_category5.image %}{{ site.best_category5.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ site.best_category5.name }}</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- New Items -->
+			<section class="new-items">
+				<div class="container">
+					<h2 class="section-title">Новинки</h2>
+					<div class="product-grid">
+						{% for i in new_products %}
+						<div class="product-card">
+							<div class="product-card__img">
+								<a href="{% url 'product_detail' i.pk %}">
+								<img src="{{ i.get_main_image }}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+									</a>
+							</div>
+							<div class="product-card__info">
+								<h2>{{ i.name }}</h2>
+								<h3>{{ i.name }}</h3>
+								<div class="product-footer">
+									<p>{{ i.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
+								</div>
+								<button class="add-to-cart">Добавить в корзину</button>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+					<a href="/catalog" class="view-all">Смотреть все</a>
+				</div>
+			</section>
+
+			<!-- Categories -->
+			<section class="categories">
+				<div class="container">
+					<h2 class="section-title">КАТЕГОРИИ</h2>
+					<div class="categories-grid">
+						<div class="grid-item">
+							<img src="{% if category1.image %}{{ category1.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ category1.name }}</button>
+						</div>
+						<div class="grid-item">
+							<img src="{% if category2.image %}{{ category2.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ category2.name }}</button>
+						</div>
+					</div>
+					<div class="categories-bottom">
+						<div class="grid-item">
+							<img src="{% if category3.image %}{{ category3.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ category3.name }}</button>
+						</div>
+						<div class="grid-item">
+							<img src="{% if category4.image %}{{ category4.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ category4.name }}</button>
+						</div>
+						<div class="grid-item">
+							<img src="{% if category5.image %}{{ category5.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ category5.name }}</button>
+						</div>
+						<div class="grid-item">
+							<img src="{% if category6.image %}{{ category6.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
+							<button>{{ category6.name }}</button>
+						</div>
+						<a href="{% url 'categories' %}">
+						<div class="grid-item arrow">
+
+							<img
+								src="{% static './assets/icons/Categories/arrowIcon.svg' %}"
+								alt="Arrow Icon"
+							/>
+
+						</div>
+							</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Night Lights -->
+			<section>
+				<div class="container">
+					<h2 class="section-title">{{ site.main_category1.name }}</h2>
+					<div class="product-grid">
+						<div class="product-card">
+							<div class="product-card__img">
+								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2>Ночник LEGO</h2>
+								<h3>ночник LEGO</h3>
+								<div class="product-footer">
+									<p>1200 сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
+								</div>
+								<button class="add-to-cart">добавить в корзину</button>
+							</div>
+						</div>
+						<div class="product-card">
+							<div class="product-card__img">
+								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2>Винтажные кепки из 90х</h2>
+								<h3>винтажные кепки из 90х</h3>
+								<div class="product-footer">
+									<p>700-800 сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
+								</div>
+								<button class="add-to-cart">добавить в корзину</button>
+							</div>
+						</div>
+						<div class="product-card">
+							<div class="product-card__img">
+								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2>Ночник LEGO</h2>
+								<h3>подвеска с розовыми камнями</h3>
+								<div class="product-footer">
+									<p>1200 сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
+								</div>
+								<button class="add-to-cart">добавить в корзину</button>
+							</div>
+						</div>
+						<div class="product-card">
+							<div class="product-card__img">
+								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2>Винтажные кепки из 90х</h2>
+								<h3>Винтажные кепки из 90х</h3>
+								<div class="product-footer">
+									<p>700-800 сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
+								</div>
+								<button class="add-to-cart">добавить в корзину</button>
+							</div>
+						</div>
+					</div>
+					<a href="/catalog" class="view-all">Смотреть все</a>
+				</div>
+			</section>
+
+			<!-- Marquee section -->
+
+			<div class="marquee-parent-container">
+				<div class="marquee-container">
+					<div class="marquee">
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+						<span>СУПЕР СКИДКИ</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Products Section -->
+			<section class="products-section">
+				<div class="container">
+					<div class="products-layout">
+						<!-- Left Product List -->
+						<div class="product-list">
+							<div class="product-item">
+								<div class="heart-icon">
+									<a href="{% url 'del_fav' site.main_product1.pk %}">
+									{% if site.main_product1.id in favorites %}
+									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
+									{% endif %}
+									</a>
+								</div>
+								<a href="{% url 'product_detail' site.main_product1.pk %}">
+									<div class="image-container">
+										<img
+											src="{% if site.main_product1.get_main_image %}{{ site.main_product1.get_main_image }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}"
+											alt="{{ site.main_product1.name }}"
+										/>
+									</div>
+									<div class="info">
+										<h3>{{ site.main_product1.name }}</h3>
+										<p>{{ site.main_product1.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
+									</div>
+								</a>
+							</div>
+							<div class="product-item">
+								<div class="heart-icon">
+									<a href="{% url 'del_fav' site.main_product2.pk %}">
+									{% if site.main_product2.id in favorites %}
+									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
+									{% endif %}
+									</a>
+								</div>
+								<a href="{% url 'product_detail' site.main_product2.pk %}">
+									<div class="image-container">
+										<img
+											src="{% if site.main_product2.get_main_image %}{{ site.main_product2.get_main_image }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}"
+											alt="{{ site.main_product2.name }}"
+										/>
+									</div>
+									<div class="info">
+										<h3>{{ site.main_product2.name }}</h3>
+										<p>{{ site.main_product2.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
+									</div>
+								</a>
+							</div>
+						</div>
+						<!-- Center Section -->
+						<div class="center-section">
+							<img src="{% static './assets/discountBlockImg/woman.png' %}" alt="#" />
+							<a href="/catalog/">СМОТРЕТЬ ВСЕ</a>
+						</div>
+						<!-- Right Product List -->
+						<div class="product-list">
+							<div class="product-item">
+								<div class="heart-icon">
+									<a href="{% url 'del_fav' site.main_product3.pk %}">
+									{% if site.main_product3.id in favorites %}
+									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
+									{% endif %}
+									</a>
+								</div>
+								<a href="{% url 'product_detail' site.main_product3.pk %}">
+									<div class="image-container">
+										<img
+											src="{% if site.main_product3.get_main_image %}{{ site.main_product3.get_main_image }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}"
+											alt="{{ site.main_product3.name }}"
+										/>
+									</div>
+									<div class="info">
+										<h3>{{ site.main_product3.name }}</h3>
+										<p>{{ site.main_product3.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
+									</div>
+								</a>
+							</div>
+							<div class="product-item">
+								<div class="heart-icon">
+									<a href="{% url 'del_fav' site.main_product4.pk %}">
+									{% if site.main_product4.id in favorites %}
+									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
+									{% endif %}
+									</a>
+								</div>
+								<a href="{% url 'product_detail' site.main_product4.pk %}">
+									<div class="image-container">
+										<img
+											src="{% if site.main_product4.get_main_image %}{{ site.main_product4.get_main_image }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}"
+											alt="{{ site.main_product4.name }}"
+										/>
+									</div>
+									<div class="info">
+										<h3>{{ site.main_product4.name }}</h3>
+										<p>{{ site.main_product4.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section>
+				<div class="container">
+					<h2 class="section-title">{{ site.main_category2.name }}</h2>
+					<div class="product-grid">
+						<div class="product-card">
+							<div class="product-card__img">
+								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2>Ночник LEGO</h2>
+								<h3>ночник LEGO</h3>
+								<div class="product-footer">
+									<p>1200 сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
+								</div>
+								<button class="add-to-cart">добавить в корзину</button>
+							</div>
+						</div>
+						<div class="product-card">
+							<div class="product-card__img">
+								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2>Винтажные кепки из 90х</h2>
+								<h3>винтажные кепки из 90х</h3>
+								<div class="product-footer">
+									<p>700-800 сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg" alt="" />
+								</div>
+								<button class="add-to-cart">добавить в корзину</button>
+							</div>
+						</div>
+						<div class="product-card">
+							<div class="product-card__img">
+								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2>Ночник LEGO</h2>
+								<h3>подвеска с розовыми камнями</h3>
+								<div class="product-footer">
+									<p>1200 сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
+								</div>
+								<button class="add-to-cart">добавить в корзину</button>
+							</div>
+						</div>
+						<div class="product-card">
+							<div class="product-card__img">
+								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
+								<img
+									class="heart-icon"
+									src="{% static './assets/icons/heartIcon.svg' %}"
+									alt="Favorite"
+								/>
+							</div>
+							<div class="product-card__info">
+								<h2>Винтажные кепки из 90х</h2>
+								<h3>Винтажные кепки из 90х</h3>
+								<div class="product-footer">
+									<p>700-800 сом</p>
+									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
+								</div>
+								<button class="add-to-cart">добавить в корзину</button>
+							</div>
+						</div>
+					</div>
+					<a href="/catalog" class="view-all">Смотреть все</a>
+				</div>
+			</section>
+
+			<!-- Features -->
+			<section class="features">
+				<div class="container">
+					<div class="features-container">
+						<div class="feature-card">
+							<img src="{% static './assets/icons/orderImg.svg' %}" alt="" />
+							<div class="feature-card-text">
+								<a href="/">Отправка день в день</a>
+								<p>ПРИ ЗАКАЗЕ ДО 18:00</p>
+							</div>
+						</div>
+						<div class="feature-card">
+							<img src="{% static './assets/icons/returnImg.svg' %}" alt="" />
+							<div class="feature-card-text">
+								<a href="/vozvrat">Легкий возврат/обмен</a>
+								<p>В ТЕЧЕНИИ 14 ДНЕЙ</p>
+							</div>
+						</div>
+						<div class="feature-card">
+							<img src="{% static './assets/icons/discountImg.svg' %}" alt="" />
+							<div class="feature-card-text">
+								<a href="/skidki">Хорошие скидки</a>
+								<p>ПОКУПАЙ ТУТ</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		{% endblock %}

@@ -14,7 +14,7 @@ def import_product_images():
 
     for product in products:
         if product.images.exists():
-            print(f"⏭ Пропущен: у продукта {product.old_id} уже есть изображения.")
+            # print(f"⏭ Пропущен: у продукта {product.old_id} уже есть изображения.")
             continue
         time.sleep(0.3)  # 🔒 не банят за частые запросы
         print(product.id)

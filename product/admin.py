@@ -4,6 +4,9 @@ from .models import *
 # admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(ImageProduct)
+admin.site.register(Favorite)
+admin.site.register(Cart)
+admin.site.register(CartItem)
 
 class ImagesInline(admin.StackedInline):
     model = ImageProduct

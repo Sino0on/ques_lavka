@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static './css/categories.css' %}" />
+<link rel="stylesheet" href="{% static './css/index.css' %}" />
+{% endblock %}
+{% block content %}
+
+		<!-- NavBar -->
+		<section class="navbar">
+			<div class="container">
+				<ul class="nav-list">
+					<li class="nav-item">
+						<a href="/a" class="nav-link">НОВИНКИ</a>
+					</li>
+					<li class="nav-item">
+						<a href="/categories" class="nav-link">КАТЕГОРИИ</a>
+					</li>
+					<li class="nav-item">
+						<a href="/catalog" class="nav-link">КАТАЛОГ</a>
+					</li>
+					<li class="nav-item">
+						<a href="/about" class="nav-link">О МАГАЗИНЕ</a>
+					</li>
+					<li class="nav-item">
+						<a href="/c" class="nav-link">АКЦИИ</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Category Page -->
+		<section class="category-page">
+			<div class="container">
+				<div class="category-header">
+					<!-- Dropdown -->
+					<div class="dropdown">
+						<button class="dropdown-button" id="dropdownButton">
+							Категория
+							<img
+								src="{% static '/assets/icons/arrowUp.svg' %}"
+								alt=""
+								class="dropdown-arrow"
+								id="dropdownArrow"
+							/>
+						</button>
+						<ul class="dropdown-menu" id="dropdownMenu">
+							<!-- Categories will be loaded here -->
+							<li class="dropdown-item" data-category="Все">
+								<div class="radio-indicator">
+									<div class="radio-dot"></div>
+								</div>
+								<span>Все</span>
+							</li>
+							<li class="dropdown-item" data-category="Офис">
+								<div class="radio-indicator">
+									<div class="radio-dot"></div>
+								</div>
+								<span>Офис</span>
+							</li>
+							<li class="dropdown-item" data-category="Дом">
+								<div class="radio-indicator">
+									<div class="radio-dot"></div>
+								</div>
+								<span>Дом</span>
+							</li>
+							<li class="go-to-catalog" id="goToCatalog">Перейти в каталог</li>
+						</ul>
+					</div>
+
+					<!-- Sort Dropdown -->
+					<div class="sort-dropdown">
+						<button class="sort-button" id="sortButton">
+							Сортировать по: <span id="currentSort">Популярности</span>
+							<svg
+								class="sort-arrow"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M19 9l-7 7-7-7"
+								/>
+							</svg>
+						</button>
+						<button class="mobile-catalog-button" id="mobileCatalogButton">
+							Перейти в каталог
+						</button>
+						<ul class="sort-menu" id="sortMenu">
+							<li class="sort-item" data-sort="Популярности">Популярности</li>
+							<li class="sort-item" data-sort="По скидкам">По скидкам</li>
+							<li class="sort-item" data-sort="Сначала дешевле">
+								Сначала дешевле
+							</li>
+							<li class="sort-item" data-sort="Сначала дороже">
+								Сначала дороже
+							</li>
+							<li class="sort-item" data-sort="По алфавиту">По алфавиту</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Product Grid -->
+				<div class="product-grid" id="productGrid">
+					<!-- Product groups will be loaded here -->
+					<div
+						class="product-group"
+						style="grid-template-columns: repeat(2, 1fr)"
+					>
+						{% if category1 %}
+						<div class="product-item">
+							<img
+								src="{% if category1.image %}{{ category1.image.url }}{% else %}https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b2ZmaWNlfGVufDB8fDB8fHww{% endif %}"
+								alt="{{ category1.name }}"
+								class="product-image"
+							/>
+							<p class="product-title">{{ category1.name }}</p>
+						</div>
+						{% endif %}
+						{% if category2 %}
+						<div class="product-item">
+							<img
+								src="{% if category2.image %}{{ category2.image.url }}{% else %}https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b2ZmaWNlfGVufDB8fDB8fHww{% endif %}"
+								alt="{{ category2.name }}"
+								class="product-image"
+							/>
+							<p class="product-title">{{ category2.name }}</p>
+						</div>
+						{% endif %}
+					</div>
+					<div
+						class="product-group"
+						style="grid-template-columns: repeat(3, 1fr)"
+					>
+						{% if category3 %}
+						<div class="product-item">
+							<img
+								src="{% if category3.image %}{{ category3.image.url }}{% else %}https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b2ZmaWNlfGVufDB8fDB8fHww{% endif %}"
+								alt="Ночник LEGO"
+								class="product-image"
+							/>
+							<p class="product-title">{{ category3.name }}</p>
+						</div>
+						{% endif %}
+						{% if category4 %}
+						<div class="product-item">
+							<img
+								src="{% if category4.image %}{{ category4.image.url }}{% else %}https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b2ZmaWNlfGVufDB8fDB8fHww{% endif %}"
+								alt="{{ category4.name }}"
+								class="product-image"
+							/>
+							<p class="product-title">{{ category4.name }}</p>
+						</div>
+						{% endif %}
+						{% if category5 %}
+						<div class="product-item">
+							<img
+								src="{% if category5.image %}{{ category5.image.url }}{% else %}https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b2ZmaWNlfGVufDB8fDB8fHww{% endif %}"
+								alt="{{ category5.name }}"
+								class="product-image"
+							/>
+							<p class="product-title">{{ category5.name }}</p>
+						</div>
+						{% endif %}
+					</div>
+					<!-- More product groups would be added here -->
+				</div>
+
+				<!-- Pagination -->
+				<div class="pagination">
+				  {# Кнопка "назад" #}
+				  {% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}">
+					  <button class="page-button" id="prevPage">&lt;</button>
+					</a>
+				  {% else %}
+					<button class="page-button" id="prevPage" disabled>&lt;</button>
+				  {% endif %}
+
+				  {# Вывод номеров страниц — показываем до 5 кнопок, включая текущую #}
+				  {% for num in page_obj.paginator.page_range %}
+					{% if num <= page_obj.number|add:'2' and num >= page_obj.number|add:'-2' %}
+					  {% if num == page_obj.number %}
+						<button class="page-button active">{{ num }}</button>
+					  {% else %}
+						<a href="?page={{ num }}">
+						  <button class="page-button">{{ num }}</button>
+						</a>
+					  {% endif %}
+					{% elif num == 1 or num == page_obj.paginator.num_pages %}
+					  <a href="?page={{ num }}">
+						<button class="page-button">{{ num }}</button>
+					  </a>
+					{% elif forloop.last or forloop.first %}
+					  <button class="page-button" disabled>...</button>
+					{% endif %}
+				  {% endfor %}
+
+				  {# Кнопка "вперёд" #}
+				  {% if page_obj.has_next %}
+					<a href="?page={{ page_obj.next_page_number }}">
+					  <button class="page-button" id="nextPage">&gt;</button>
+					</a>
+				  {% else %}
+					<button class="page-button" id="nextPage" disabled>&gt;</button>
+				  {% endif %}
+				</div>
+
+			</div>
+		</section>
+{% endblock %}
+{% block js %}
+		<script src="{% static '/js/layout/layout-header.js' %}"></script>
+		<script src="{% static '/js/layout/layout-footer.js' %}"></script>
+		<script src="{% static '/js/categories.js' %}"></script>
+{% endblock %}
