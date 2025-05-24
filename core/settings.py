@@ -28,6 +28,8 @@ SECRET_KEY = "django-insecure-!epamr8=185!uyy!^fvv_+cv1*$o1m#y2(53h379g&#4qdqg#r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="").split(',')
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -157,7 +159,6 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
-CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="").split(',')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
