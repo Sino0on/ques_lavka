@@ -21,6 +21,8 @@ services:
     restart: always
     volumes:
       - ./:/app
+      - ./media:/app/media
+
     ports:
       - "8003:8003"
     depends_on:
