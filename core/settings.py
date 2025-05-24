@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-!epamr8=185!uyy!^fvv_+cv1*$o1m#y2(53h379g&#4qdqg#r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="").split(',')
+CSRF_TRUSTED_ORIGINS = ['https://lavka.ques.kg/', 'https://www.lavka.ques.kg/']
 
 ALLOWED_HOSTS = ['*']
 
