@@ -103,8 +103,8 @@ class HomePageView(generic.TemplateView):
         for i, j in enumerate(context['categories']):
             context[f'category{i+1}'] = j
         context['site'] = SiteSetting.objects.all().first()
-        context['products1'] = context['site'].main_category1.products.all()
-        context['products2'] = context['site'].main_category2.products.all()
+        context['products1'] = context['site'].main_category1.products.all()[:4]
+        context['products2'] = context['site'].main_category2.products.all()[:4]
         if self.request.user.is_authenticated:
             context['favorites'] = [i.product.id for i in self.request.user.favorites.all()]
         else:
