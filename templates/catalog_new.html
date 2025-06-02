@@ -46,139 +46,112 @@
 							<h3 class="filtersidebar__btn-text">Фильтры</h3>
 						</button>
 						<div class="filtersidebar__text">
-							<p class="filtersidebar__sort" id="sortToggle">
-								Сортировать по:
-								<span id="currentSort" class="filtersidebar__sort__text"
-									>Популярности</span
-								>
-								<img src="{% static './assets/icons/filter-arrow.svg' %}" alt="arrow" />
-								<img
-									src="{% static './assets/icons/filter-arrow.svg' %}"
-									class="filter-arrow"
-									alt="arrow"
-								/>
-							</p>
-							<ul class="filtersidebar__dropdown" id="sortDropdown">
-								<li
-									class="filtersidebar__dropdown-item"
-									data-sort="Популярности"
-								>
+						<p class="filtersidebar__sort" id="sortToggle">
+							Сортировать по:
+							<span id="currentSort" class="filtersidebar__sort__text">
+								{% if request.GET.sort %}
+									{{ request.GET.sort }}
+								{% else %}
 									Популярности
-								</li>
-								<li class="filtersidebar__dropdown-item" data-sort="По скидкам">
-									По скидкам
-								</li>
-								<li
-									class="filtersidebar__dropdown-item"
-									data-sort="Сначала дешевле"
-								>
-									Сначала дешевле
-								</li>
-								<li
-									class="filtersidebar__dropdown-item"
-									data-sort="Сначала дороже"
-								>
-									Сначала дороже
-								</li>
-								<li
-									class="filtersidebar__dropdown-item"
-									data-sort="По алфавиту"
-								>
-									По алфавиту
-								</li>
-							</ul>
-						</div>
-					</div>
+								{% endif %}
+							</span>
+							<img src="{% static './assets/icons/filter-arrow.svg' %}" alt="arrow" />
+							<img src="{% static './assets/icons/filter-arrow.svg' %}" class="filter-arrow" alt="arrow" />
+						</p>
 
-					<!-- Панель фильтров -->
-					<div class="filtersidebar__panel" id="filterPanel">
-						<button
-							type="button"
-							title="toggleFilter"
-							class="filtersidebar__close"
-							id="closeFilterBtn"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								class="filtersidebar__close-icon"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M6 18L18 6M6 6l12 12"
-								/>
-							</svg>
-						</button>
-						<h2 class="filtersidebar__title">ФИЛЬТРЫ</h2>
-						<div class="filtersidebar__checkboxes">
-							<label class="filtersidebar__label">
-								<span>Со скидкой</span>
-								<input type="checkbox" class="filtersidebar__checkbox" />
-							</label>
-							<label class="filtersidebar__label">
-								<span>В наличии</span>
-								<input
-									type="checkbox"
-									class="filtersidebar__checkbox"
-									checked
-								/>
-							</label>
-						</div>
-						<div class="filtersidebar__slider">
-							<div class="filtersidebar__slider-labels">
-								<span id="minPriceLabel">от 50 с</span>
-								<span id="maxPriceLabel">до 10000 с</span>
-							</div>
-							<div class="filtersidebar__slider-container">
-								<div class="filtersidebar__track"></div>
-								<input
-									title="minPrice"
-									type="range"
-									min="50"
-									max="10000"
-									value="50"
-									class="filtersidebar__range"
-									id="minPrice"
-								/>
-								<input
-									title="maxPrice"
-									type="range"
-									min="50"
-									max="10000"
-									value="10000"
-									class="filtersidebar__range"
-									id="maxPrice"
-								/>
-							</div>
-						</div>
-						<ul class="filtersidebar__categories">
-							<li class="filtersidebar__category">
-								<span>Аксессуары</span>
-								<button type="button" class="filtersidebar__button">+</button>
-							</li>
-							<li class="filtersidebar__category">
-								<span>Все для волос</span>
-								<button type="button" class="filtersidebar__button">+</button>
-							</li>
-							<li class="filtersidebar__category">
-								<span>Головные уборы</span>
-								<button type="button" class="filtersidebar__button">+</button>
-							</li>
-							<li class="filtersidebar__category">
-								<span>Конструкторы</span>
-								<button type="button" class="filtersidebar__button">+</button>
-							</li>
-							<li class="filtersidebar__category">
-								<span>Ночники</span>
-								<button type="button" class="filtersidebar__button">-</button>
-							</li>
+						<ul class="filtersidebar__dropdown" id="sortDropdown">
+							{% for value, label in sort_options %}
+								<li class="filtersidebar__dropdown-item">
+									<a href="?{% for key, val in request.GET.items %}{% if key != 'sort' %}{{ key }}={{ val }}&{% endif %}{% endfor %}sort={{ value }}">
+										{{ label }}
+									</a>
+								</li>
+							{% endfor %}
 						</ul>
 					</div>
+
+					</div>
+
+					<form method="get" id="filterForm">
+						<div class="filtersidebar__panel" id="filterPanel">
+							<button type="button" title="toggleFilter" class="filtersidebar__close" id="closeFilterBtn">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+									stroke="currentColor" class="filtersidebar__close-icon">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+								</svg>
+							</button>
+
+							<h2 class="filtersidebar__title">ФИЛЬТРЫ</h2>
+
+							<!-- Чекбоксы -->
+							<div class="filtersidebar__checkboxes">
+								<label class="filtersidebar__label">
+									<span>Со скидкой</span>
+									<input type="checkbox" name="discount" value="1" class="filtersidebar__checkbox"
+										{% if request.GET.discount %}checked{% endif %}>
+								</label>
+								<label class="filtersidebar__label">
+									<span>В наличии</span>
+									<input type="checkbox" name="available" value="1" class="filtersidebar__checkbox"
+										{% if request.GET.available %}checked{% endif %}>
+								</label>
+							</div>
+
+							<!-- Слайдер цены -->
+							<div class="filtersidebar__slider">
+								<div class="filtersidebar__slider-labels">
+									<span id="minPriceLabel">от {{ request.GET.min_price|default:"0" }} с</span>
+									<span id="maxPriceLabel">до {{ request.GET.max_price|default:"10000" }} с</span>
+								</div>
+								<div class="filtersidebar__slider-container">
+									<input
+										title="minPrice"
+										type="range"
+										min="50"
+										max="10000"
+										name="min_price"
+										value="{{ request.GET.min_price|default:"50" }}"
+										class="filtersidebar__range"
+										id="minPrice"
+										oninput="document.getElementById('minPriceLabel').innerText = 'от ' + this.value + ' с';"
+									/>
+									<input
+										title="maxPrice"
+										type="range"
+										min="50"
+										max="10000"
+										name="max_price"
+										value="{{ request.GET.max_price|default:"10000" }}"
+										class="filtersidebar__range"
+										id="maxPrice"
+										oninput="document.getElementById('maxPriceLabel').innerText = 'до ' + this.value + ' с';"
+									/>
+								</div>
+							</div>
+
+
+							<!-- Категории -->
+							<ul class="filtersidebar__categories">
+								{% for cat in filter.form.fields.category.queryset %}
+								<li class="filtersidebar__category">
+									<label>
+										<input type="radio" name="category" value="{{ cat.id }}"
+											{% if request.GET.category == cat.id|stringformat:"s" %}checked{% endif %}>
+										<span>{{ cat.name }}</span>
+									</label>
+								</li>
+								{% endfor %}
+							</ul>
+
+							<!-- Кнопка применения -->
+							<div style="padding: 1rem 0;">
+								<button type="submit" class="filtersidebar__btn-submit">Применить</button>
+							</div>
+						</div>
+					</form>
+
 					<div class="filtersidebar__overlay" id="filterOverlay"></div>
+
 				</div>
 				<!-- Лоадер (скрыт по умолчанию) -->
 				<div class="loader-container">
@@ -189,6 +162,7 @@
 				<div class="catalog-content">
 					<div class="catalog-grid">
 						<!-- Карточка 1 (маленькая) -->
+						{% if product1 %}
 						<div class="product-card">
 
 								<div class="product-card__img">
@@ -202,7 +176,7 @@
 									<a href="{% url 'del_fav' product1.pk %}">
 									<div class="heart-icon">
 										{% if product1.id in favorites %}
-										<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+										<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
 										{% else %}
 										<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
 										{% endif %}
@@ -219,8 +193,9 @@
 								</div>
 							</a>
 						</div>
-
+						{% endif %}
 						<!-- Карточка 2 (маленькая) -->
+						{% if product2 %}
 						<div class="product-card">
 
 							<div class="product-card__img">
@@ -234,7 +209,7 @@
 								<a href="{% url 'del_fav' product2.pk %}">
 								<div class="heart-icon">
 									{% if product2.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
 									{% else %}
 									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
 									{% endif %}
@@ -250,10 +225,10 @@
 								</div>
 								</a>
 							</div>
-
 						</div>
-
+						{% endif %}
 						<!-- Карточка 3 (маленькая) -->
+						{% if product3 %}
 						<div class="product-card">
 
 							<img
@@ -272,7 +247,7 @@
 								<a href="{% url 'del_fav' product3.pk %}">
 								<div class="heart-icon">
 									{% if product3.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
 									{% else %}
 									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
 									{% endif %}
@@ -289,8 +264,9 @@
 							</div>
 							</a>
 						</div>
-
+						{% endif %}
 						<!-- Карточка 4 (маленькая) -->
+						{% if product4 %}
 						<div class="product-card">
 							<div class="product-card__img">
 								<a href="{% url 'product_detail' product4.pk %}">
@@ -303,7 +279,7 @@
 								<a href="{% url 'del_fav' product4.pk %}">
 								<div class="heart-icon">
 									{% if product4.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
 									{% else %}
 									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
 									{% endif %}
@@ -320,8 +296,9 @@
 							</div>
 							</a>
 						</div>
-
+						{% endif %}
 						<!-- Карточка 5 (маленькая) -->
+						{% if product5 %}
 						<div class="product-card">
 
 							<img
@@ -341,7 +318,7 @@
 								<a href="{% url 'del_fav' product5.pk %}">
 								<div class="heart-icon">
 									{% if product5.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
 									{% else %}
 									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
 									{% endif %}								</div>
@@ -358,8 +335,9 @@
 							</div>
 							</a>
 						</div>
-
+						{% endif %}
 						<!-- Карточка 6 (маленькая) -->
+						{% if product6 %}
 						<div class="product-card">
 
 							<div class="product-card__img">
@@ -373,7 +351,7 @@
 								<a href="{% url 'del_fav' product6.pk %}">
 								<div class="heart-icon">
 									{% if product6.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
 									{% else %}
 									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
 									{% endif %}
@@ -390,8 +368,9 @@
 							</div>
 							</a>
 						</div>
-
+						{% endif %}
 						<!-- Карточка 7 (большая) -->
+						{% if product7 %}
 						<div class="product-card large">
 
 							<img
@@ -410,7 +389,7 @@
 								<a href="{% url 'del_fav' product7.pk %}">
 								<div class="heart-icon">
 									{% if product7.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
 									{% else %}
 									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
 									{% endif %}
@@ -427,8 +406,9 @@
 							</div>
 							</a>
 						</div>
-
+						{% endif %}
 						<!-- Карточка 8 (большая) -->
+						{% if product8 %}
 						<div class="product-card large">
 
 							<img
@@ -447,7 +427,7 @@
 								<a href="{% url 'del_fav' product8.pk %}">
 								<div class="heart-icon">
 									{% if product8.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
 									{% else %}
 									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
 									{% endif %}
@@ -465,6 +445,7 @@
 
 							</a>
 						</div>
+						{% endif %}
 					</div>
 
 					<!-- Пагинация -->

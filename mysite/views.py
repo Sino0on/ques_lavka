@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+
+from product.filters import ProductFilter
 from product.models import Product, Category, Favorite, CartItem, Cart
 from django.contrib.auth.decorators import login_required
 from .models import *
@@ -31,20 +33,51 @@ def payment_callback_view(request):
 
     return redirect('/')  # или показать страницу оплаты
 
+from django_filters.views import FilterView
 
-class ProductListView(generic.ListView):
+
+class ProductListView(FilterView):
     template_name = 'catalog_new.html'
     queryset = Product.objects.all()
     model = Product
+    filterset_class = ProductFilter
     paginate_by = 8
     context_object_name = 'products'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        sort = self.request.GET.get('sort')
+
+        if sort == 'price_asc':
+            queryset = queryset.order_by('sale_price')
+        elif sort == 'price_desc':
+            queryset = queryset.order_by('-sale_price')
+        elif sort == 'name':
+            queryset = queryset.order_by('name')
+        elif sort == 'discount':
+            queryset = queryset.annotate(
+                discount=models.F('buy_price') - models.F('sale_price')
+            ).order_by('-discount')
+        else:
+            # По умолчанию — популярность, если у тебя такое поле есть
+            queryset = queryset.order_by('-id')  # заменишь на `popularity` если есть
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         for i, j in enumerate(context['products']):
             context[f'product{i+1}'] = j
-        context['favorites'] = [i.product.id for i in self.request.user.favorites.all()]
-        # print(context['favorites'])
+        if self.request.user.is_authenticated:
+            context['favorites'] = [i.product.id for i in self.request.user.favorites.all()]
+        else:
+            context['favorites'] = []
+        context['sort_options'] = [
+            ('', 'Популярности'),
+            ('discount', 'По скидкам'),
+            ('price_asc', 'Сначала дешевле'),
+            ('price_desc', 'Сначала дороже'),
+            ('name', 'По алфавиту'),
+        ]
         return context
 
 
@@ -74,7 +107,8 @@ class HomePageView(generic.TemplateView):
         context['products2'] = context['site'].main_category2.products.all()
         if self.request.user.is_authenticated:
             context['favorites'] = [i.product.id for i in self.request.user.favorites.all()]
-        context['favorites'] = []
+        else:
+            context['favorites'] = []
         return context
 
 

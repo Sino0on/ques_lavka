@@ -74,13 +74,24 @@
 							<div class="product-card__img">
 								<a href="{% url 'product_detail' i.pk %}">
 								<img src="{{ i.get_main_image }}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
+									</a>
+								<a href="{% url 'del_fav' i.pk %}">
+									{% if i.id in favorites %}
+									<img
+										class="heart-icon"
+										src="{% static './assets/icons/activeHeart.svg' %}"
+										alt="Favorite"
+									/>
+									{% else %}
+									<img
+										class="heart-icon"
+										src="{% static './assets/icons/heartIcon.svg' %}"
+										alt="Favorite"
+									/>
+									{% endif %}
 									</a>
 							</div>
+							<a href="{% url 'product_detail' i.pk %}">
 							<div class="product-card__info">
 								<h2>{{ i.name }}</h2>
 								<h3>{{ i.name }}</h3>
@@ -90,6 +101,7 @@
 								</div>
 								<button class="add-to-cart">Добавить в корзину</button>
 							</div>
+							</a>
 						</div>
 						{% endfor %}
 					</div>
@@ -147,84 +159,43 @@
 				<div class="container">
 					<h2 class="section-title">{{ site.main_category1.name }}</h2>
 					<div class="product-grid">
+						{% for i in products1 %}
 						<div class="product-card">
 							<div class="product-card__img">
-								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
+								<a href="{% url 'product_detail' i.pk %}">
+								<img src="{{ i.get_main_image }}" alt="" />
+									</a>
+								<a href="{% url 'del_fav' i.pk %}">
+									{% if i.id in favorites %}
+									<img
+										class="heart-icon"
+										src="{% static './assets/icons/activeHeart.svg' %}"
+										alt="Favorite"
+									/>
+									{% else %}
+									<img
+										class="heart-icon"
+										src="{% static './assets/icons/heartIcon.svg' %}"
+										alt="Favorite"
+									/>
+									{% endif %}
+									</a>
 							</div>
+							<a href="{% url 'product_detail' i.pk %}">
 							<div class="product-card__info">
-								<h2>Ночник LEGO</h2>
-								<h3>ночник LEGO</h3>
+								<h2>{{ i.name }}</h2>
+								<h3>{{ i.name }}</h3>
 								<div class="product-footer">
-									<p>1200 сом</p>
+									<p>{{ i.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
 									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
 								</div>
-								<button class="add-to-cart">добавить в корзину</button>
+								<button class="add-to-cart">Добавить в корзину</button>
 							</div>
+							</a>
 						</div>
-						<div class="product-card">
-							<div class="product-card__img">
-								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
-							</div>
-							<div class="product-card__info">
-								<h2>Винтажные кепки из 90х</h2>
-								<h3>винтажные кепки из 90х</h3>
-								<div class="product-footer">
-									<p>700-800 сом</p>
-									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
-								</div>
-								<button class="add-to-cart">добавить в корзину</button>
-							</div>
-						</div>
-						<div class="product-card">
-							<div class="product-card__img">
-								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
-							</div>
-							<div class="product-card__info">
-								<h2>Ночник LEGO</h2>
-								<h3>подвеска с розовыми камнями</h3>
-								<div class="product-footer">
-									<p>1200 сом</p>
-									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
-								</div>
-								<button class="add-to-cart">добавить в корзину</button>
-							</div>
-						</div>
-						<div class="product-card">
-							<div class="product-card__img">
-								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
-							</div>
-							<div class="product-card__info">
-								<h2>Винтажные кепки из 90х</h2>
-								<h3>Винтажные кепки из 90х</h3>
-								<div class="product-footer">
-									<p>700-800 сом</p>
-									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
-								</div>
-								<button class="add-to-cart">добавить в корзину</button>
-							</div>
-						</div>
+						{% endfor %}
 					</div>
-					<a href="/catalog" class="view-all">Смотреть все</a>
+					<a href="/catalog?category={{ site.main_category1.pk }}" class="view-all">Смотреть все</a>
 				</div>
 			</section>
 
@@ -362,84 +333,43 @@
 				<div class="container">
 					<h2 class="section-title">{{ site.main_category2.name }}</h2>
 					<div class="product-grid">
+						{% for i in products2 %}
 						<div class="product-card">
 							<div class="product-card__img">
-								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
+								<a href="{% url 'product_detail' i.pk %}">
+								<img src="{{ i.get_main_image }}" alt="" />
+									</a>
+								<a href="{% url 'del_fav' i.pk %}">
+									{% if i.id in favorites %}
+									<img
+										class="heart-icon"
+										src="{% static './assets/icons/activeHeart.svg' %}"
+										alt="Favorite"
+									/>
+									{% else %}
+									<img
+										class="heart-icon"
+										src="{% static './assets/icons/heartIcon.svg' %}"
+										alt="Favorite"
+									/>
+									{% endif %}
+									</a>
 							</div>
+							<a href="{% url 'product_detail' i.pk %}">
 							<div class="product-card__info">
-								<h2>Ночник LEGO</h2>
-								<h3>ночник LEGO</h3>
+								<h2>{{ i.name }}</h2>
+								<h3>{{ i.name }}</h3>
 								<div class="product-footer">
-									<p>1200 сом</p>
+									<p>{{ i.sale_price|stringformat:"s"|slice:":-5" }} сом</p>
 									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
 								</div>
-								<button class="add-to-cart">добавить в корзину</button>
+								<button class="add-to-cart">Добавить в корзину</button>
 							</div>
+							</a>
 						</div>
-						<div class="product-card">
-							<div class="product-card__img">
-								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
-							</div>
-							<div class="product-card__info">
-								<h2>Винтажные кепки из 90х</h2>
-								<h3>винтажные кепки из 90х</h3>
-								<div class="product-footer">
-									<p>700-800 сом</p>
-									<img src="{% static './assets/icons/basketIconNoActive.svg" alt="" />
-								</div>
-								<button class="add-to-cart">добавить в корзину</button>
-							</div>
-						</div>
-						<div class="product-card">
-							<div class="product-card__img">
-								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
-							</div>
-							<div class="product-card__info">
-								<h2>Ночник LEGO</h2>
-								<h3>подвеска с розовыми камнями</h3>
-								<div class="product-footer">
-									<p>1200 сом</p>
-									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
-								</div>
-								<button class="add-to-cart">добавить в корзину</button>
-							</div>
-						</div>
-						<div class="product-card">
-							<div class="product-card__img">
-								<img src="{% static './assets/Catalog/discount.png' %}" alt="" />
-								<img
-									class="heart-icon"
-									src="{% static './assets/icons/heartIcon.svg' %}"
-									alt="Favorite"
-								/>
-							</div>
-							<div class="product-card__info">
-								<h2>Винтажные кепки из 90х</h2>
-								<h3>Винтажные кепки из 90х</h3>
-								<div class="product-footer">
-									<p>700-800 сом</p>
-									<img src="{% static './assets/icons/basketIconNoActive.svg' %}" alt="" />
-								</div>
-								<button class="add-to-cart">добавить в корзину</button>
-							</div>
-						</div>
+						{% endfor %}
 					</div>
-					<a href="/catalog" class="view-all">Смотреть все</a>
+					<a href="/catalog?category={{ site.main_category2.pk }}" class="view-all">Смотреть все</a>
 				</div>
 			</section>
 
