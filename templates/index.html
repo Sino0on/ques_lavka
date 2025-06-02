@@ -73,7 +73,7 @@
 						<div class="product-card">
 							<div class="product-card__img">
 								<a href="{% url 'product_detail' i.pk %}">
-								<img src="{{ i.get_main_image }}" alt="" />
+								<img class="img" src="{{ i.get_main_image }}" alt="" />
 									</a>
 								<a href="{% url 'del_fav' i.pk %}">
 									{% if i.id in favorites %}
@@ -163,7 +163,7 @@
 						<div class="product-card">
 							<div class="product-card__img">
 								<a href="{% url 'product_detail' i.pk %}">
-								<img src="{{ i.get_main_image }}" alt="" />
+								<img class="img" src="{{ i.get_main_image }}" alt="" />
 									</a>
 								<a href="{% url 'del_fav' i.pk %}">
 									{% if i.id in favorites %}
@@ -337,7 +337,7 @@
 						<div class="product-card">
 							<div class="product-card__img">
 								<a href="{% url 'product_detail' i.pk %}">
-								<img src="{{ i.get_main_image }}" alt="" />
+								<img class="img" src="{{ i.get_main_image }}" alt="" />
 									</a>
 								<a href="{% url 'del_fav' i.pk %}">
 									{% if i.id in favorites %}
