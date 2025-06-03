@@ -377,3 +377,22 @@ def success_freedom_pay(request):
         order.save()
 
     return redirect('/')
+
+
+# views.py
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from .forms import ContactRequestForm
+from .telegram_utils import send_to_telegram  # создадим этот файл ниже
+
+@csrf_exempt
+@require_POST
+def submit_contact_form(request):
+    form = ContactRequestForm(request.POST)
+    if form.is_valid():
+        contact = form.save()
+        # отправка в Telegram
+        send_to_telegram(contact)
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'errors': form.errors})

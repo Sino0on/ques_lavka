@@ -25,4 +25,5 @@ urlpatterns = [
     path('payment/callback/', payment_callback_view, name='payment_callback'),
     path('payment/fail/', fail_freedom_pay, name='payment_fail'),
     path('payment/success/', success_freedom_pay, name='payment_success'),
+    path('submit-contact-form/', submit_contact_form, name='submit_contact_form'),
 ]

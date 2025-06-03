@@ -12,7 +12,7 @@
 				<div class="contacts-header">
 					<div class="contact-block">
 						<img
-							src="./assets/icons/calendarIcon.svg"
+							src="{% static './assets/icons/calendarIcon.svg' %}"
 							alt="Время работы"
 							class="contacts__icon"
 						/>
@@ -22,7 +22,7 @@
 
 					<div class="contact-block">
 						<img
-							src="./assets/icons/phoneBold.svg"
+							src="{% static './assets/icons/phoneBold.svg' %}"
 							alt="Телефон"
 							class="contacts__icon"
 						/>
@@ -36,7 +36,7 @@
 
 					<div class="contact-block">
 						<img
-							src="./assets/icons/addresIcon.svg"
+							src="{% static './assets/icons/addresIcon.svg' %}"
 							alt="Адрес"
 							class="contacts__icon"
 						/>
@@ -51,7 +51,7 @@
 
 					<div class="contact-block">
 						<img
-							src="./assets/icons/mailIcon.svg"
+							src="{% static './assets/icons/mailIcon.svg' %}"
 							alt="Почта"
 							class="contacts__icon"
 						/>
@@ -76,7 +76,9 @@
 						</iframe>
 					</div>
 
-					<form id="contact-form" class="contact-form">
+					<form id="contact-form" class="contact-form" method="post">
+						{% csrf_token %}
+
 						<h2 class="form-title">У вас есть вопросы к нам?</h2>
 						<p class="form-description">
 							Наш менеджер свяжется с вами в ближайшее время
@@ -85,6 +87,7 @@
 						<input
 							type="text"
 							id="name"
+							name="name"
 							placeholder="Имя"
 							class="form-input"
 							required
@@ -92,6 +95,7 @@
 						<input
 							type="tel"
 							id="phone"
+							name="phone"
 							placeholder="Телефон"
 							class="form-input"
 							required
@@ -99,6 +103,7 @@
 						<input
 							type="email"
 							id="email"
+							name="email"
 							placeholder="Email"
 							class="form-input"
 							required
@@ -106,25 +111,33 @@
 
 						<button type="submit" class="submit-btn">Отправить</button>
 					</form>
+
 				</div>
 			</div>
 
 			<script>
-				document
-					.getElementById('contact-form')
-					.addEventListener('submit', function (e) {
-						e.preventDefault()
+			document.getElementById('contact-form').addEventListener('submit', async function (e) {
+				e.preventDefault();
+				const formData = new FormData(this);
 
-						const formData = {
-							name: document.getElementById('name').value,
-							phone: document.getElementById('phone').value,
-							email: document.getElementById('email').value,
-						}
+				const response = await fetch("{% url 'submit_contact_form' %}", {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': '{{ csrf_token }}'
+					},
+					body: formData
+				});
 
-						console.log('Форма отправлена:', formData)
-						this.reset()
-					})
+				const result = await response.json();
+				if (result.success) {
+					alert('Заявка отправлена!');
+					this.reset();
+				} else {
+					alert('Ошибка при отправке: ' + JSON.stringify(result.errors));
+				}
+			});
 			</script>
+
 		</section>
 {% endblock %}
 {% block js %}
