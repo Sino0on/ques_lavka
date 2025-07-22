@@ -38,28 +38,38 @@
 				<div class="container">
 					<h2 class="section-title">БЕСТСЕЛЛЕРЫ</h2>
 					<div class="bestsellers-grid">
+						<a href="{% url 'catalog' %}?category={{ category1.pk }}">
 						<div class="grid-item">
 							<img src="{% if site.best_category1.image %}{{ site.best_category1.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ site.best_category1.name }}</button>
 						</div>
+						</a>
+						<a href="{% url 'catalog' %}?category={{ category2.pk }}">
 						<div class="grid-item">
 							<img src="{% if site.best_category2.image %}{{ site.best_category2.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ site.best_category2.name }}</button>
 						</div>
+						</a>
+						<a href="{% url 'catalog' %}?category={{ category3.pk }}">
 						<div class="grid-item">
 							<img src="{% if site.best_category3.image %}{{ site.best_category3.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ site.best_category3.name }}</button>
 						</div>
+						</a>
 					</div>
 					<div class="bestsellers-bottom">
+						<a href="{% url 'catalog' %}?category={{ category4.pk }}">
 						<div class="grid-item">
 							<img src="{% if site.best_category4.image %}{{ site.best_category4.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ site.best_category4.name }}</button>
 						</div>
+						</a>
+						<a href="{% url 'catalog' %}?category={{ category5.pk }}">
 						<div class="grid-item">
 							<img src="{% if site.best_category5.image %}{{ site.best_category5.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ site.best_category5.name }}</button>
 						</div>
+						</a>
 					</div>
 				</div>
 			</section>
@@ -116,32 +126,44 @@
 				<div class="container">
 					<h2 class="section-title">КАТЕГОРИИ</h2>
 					<div class="categories-grid">
+						<a href="{% url 'catalog' %}?category={{ category1.pk }}">
 						<div class="grid-item">
 							<img src="{% if category1.image %}{{ category1.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ category1.name }}</button>
 						</div>
+							</a>
+						<a href="{% url 'catalog' %}?category={{ category2.pk }}">
 						<div class="grid-item">
 							<img src="{% if category2.image %}{{ category2.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ category2.name }}</button>
 						</div>
+						</a>
 					</div>
 					<div class="categories-bottom">
+						<a href="{% url 'catalog' %}?category={{ category3.pk }}">
 						<div class="grid-item">
 							<img src="{% if category3.image %}{{ category3.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ category3.name }}</button>
 						</div>
+						</a>
+						<a href="{% url 'catalog' %}?category={{ category4.pk }}">
 						<div class="grid-item">
 							<img src="{% if category4.image %}{{ category4.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ category4.name }}</button>
 						</div>
+						</a>
+						<a href="{% url 'catalog' %}?category={{ category5.pk }}">
 						<div class="grid-item">
 							<img src="{% if category5.image %}{{ category5.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ category5.name }}</button>
 						</div>
+						</a>
+						<a href="{% url 'catalog' %}?category={{ category6.pk }}">
 						<div class="grid-item">
 							<img src="{% if category6.image %}{{ category6.image.url }}{% else %}{% static './assets/Home/images/fourth.png' %}{% endif %}" alt="" />
 							<button>{{ category6.name }}</button>
 						</div>
+						</a>
 						<a href="{% url 'categories' %}">
 						<div class="grid-item arrow">
 

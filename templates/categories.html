@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block links %}
-<link rel="stylesheet" href="{% static './css/categories.css' %}" />
+<link rel="stylesheet" href="{% static './css/categories.css' %}" xmlns="http://www.w3.org/1999/html"/>
 <link rel="stylesheet" href="{% static './css/index.css' %}" />
 {% endblock %}
 {% block content %}
@@ -108,6 +108,7 @@
 				  {% for group in grouped_categories %}
 					<div class="product-group" style="grid-template-columns: repeat({{ group|length }}, 1fr)">
 					  {% for category in group %}
+						<a href="{% url 'catalog' %}?category={{ category.pk }}">
 						<div class="product-item">
 						  <img
 							src="{% if category.image %}{{ category.image.url }}{% else %}https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=800&auto=format&fit=crop&q=60{% endif %}"
@@ -116,6 +117,7 @@
 						  />
 						  <p class="product-title">{{ category.name }}</p>
 						</div>
+						</a>
 					  {% endfor %}
 					</div>
 				  {% endfor %}
