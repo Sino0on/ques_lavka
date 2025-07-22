@@ -86,6 +86,7 @@
 .desktop-icon,
 .mobile-icon {
 	position: absolute;
+	width: 150px;
 }
 
 .desktop-icon {
@@ -192,6 +193,8 @@
 
 	.desktop-icon {
 		display: block;
+		width: 150px;
+		color: #fff;
 	}
 }
 

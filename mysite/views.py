@@ -112,19 +112,35 @@ class HomePageView(generic.TemplateView):
         return context
 
 
+from django.views import generic
+from .models import Category
+
+def group_categories(categories):
+    result = []
+    pattern = [2, 3]  # Чередуем 2 и 3
+    index = 0
+    i = 0
+    while index < len(categories):
+        group_size = pattern[i % len(pattern)]
+        result.append(categories[index:index + group_size])
+        index += group_size
+        i += 1
+    return result
+
+
 class CategoriesListView(generic.ListView):
     template_name = 'categories.html'
     queryset = Category.objects.all()
     model = Category
-    paginate_by = 5
-    context_object_name = "categories"
+    context_object_name = "categories"  # оставим, если тебе нужно
+    paginate_by = None  # ❌ отключаем пагинацию
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        for i, j in enumerate(context['categories']):
-            context[f'category{i+1}'] = j
-        print(context['category1'])
+        categories = context['categories']
+        context['grouped_categories'] = group_categories(list(categories))
         return context
+
 
 
 class AboutView(generic.TemplateView):

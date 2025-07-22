@@ -142,7 +142,7 @@ body {
 	align-items: center;
 }
 
-footer .nav-link {
+.nav-link {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -157,7 +157,7 @@ footer .nav-link {
 	background-color: #e5e7eb;
 }
 
-footer .nav-link.active {
+.nav-link.active {
 	background-color: #3b82f6; /* Соответствует bg-blue-500 */
 }
 

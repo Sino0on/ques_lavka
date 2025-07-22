@@ -75,21 +75,23 @@
 								<a href="{% url 'product_detail' i.pk %}">
 								<img class="img" src="{{ i.get_main_image }}" alt="" />
 									</a>
-								<a href="{% url 'del_fav' i.pk %}">
+<!--								<a href="{% url 'del_fav' i.pk %}">-->
 									{% if i.id in favorites %}
 									<img
 										class="heart-icon"
 										src="{% static './assets/icons/activeHeart.svg' %}"
 										alt="Favorite"
+										onclick="location.href='{% url 'del_fav' i.pk %}'"
 									/>
 									{% else %}
 									<img
 										class="heart-icon"
 										src="{% static './assets/icons/heartIcon.svg' %}"
 										alt="Favorite"
+										onclick="location.href='{% url 'del_fav' i.pk %}'"
 									/>
 									{% endif %}
-									</a>
+<!--									</a>-->
 							</div>
 							<a href="{% url 'product_detail' i.pk %}">
 							<div class="product-card__info">
@@ -165,21 +167,23 @@
 								<a href="{% url 'product_detail' i.pk %}">
 								<img class="img" src="{{ i.get_main_image }}" alt="" />
 									</a>
-								<a href="{% url 'del_fav' i.pk %}">
+<!--								<a href="{% url 'del_fav' i.pk %}">-->
 									{% if i.id in favorites %}
 									<img
 										class="heart-icon"
 										src="{% static './assets/icons/activeHeart.svg' %}"
 										alt="Favorite"
+										onclick="location.href='{% url 'del_fav' i.pk %}'"
 									/>
 									{% else %}
 									<img
 										class="heart-icon"
 										src="{% static './assets/icons/heartIcon.svg' %}"
 										alt="Favorite"
+										onclick="location.href='{% url 'del_fav' i.pk %}'"
 									/>
 									{% endif %}
-									</a>
+<!--									</a>-->
 							</div>
 							<a href="{% url 'product_detail' i.pk %}">
 							<div class="product-card__info">
@@ -226,13 +230,13 @@
 						<div class="product-list">
 							<div class="product-item">
 								<div class="heart-icon">
-									<a href="{% url 'del_fav' site.main_product1.pk %}">
+<!--									<a href="{% url 'del_fav' site.main_product1.pk %}">-->
 									{% if site.main_product1.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" onclick="location.href='{% url 'del_fav' site.main_product1.pk %}'"/>
 									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" onclick="location.href='{% url 'del_fav' site.main_product1.pk %}'"/>
 									{% endif %}
-									</a>
+<!--									</a>-->
 								</div>
 								<a href="{% url 'product_detail' site.main_product1.pk %}">
 									<div class="image-container">
@@ -249,13 +253,13 @@
 							</div>
 							<div class="product-item">
 								<div class="heart-icon">
-									<a href="{% url 'del_fav' site.main_product2.pk %}">
+<!--									<a href="{% url 'del_fav' site.main_product2.pk %}">-->
 									{% if site.main_product2.id in favorites %}
-									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" />
+									<img src="{% static './assets/icons/activeheart.svg' %}" alt="heart" onclick="location.href='{% url 'del_fav' site.main_product2.pk %}'"/>
 									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" onclick="location.href='{% url 'del_fav' site.main_product2.pk %}'"/>
 									{% endif %}
-									</a>
+<!--									</a>-->
 								</div>
 								<a href="{% url 'product_detail' site.main_product2.pk %}">
 									<div class="image-container">
@@ -337,23 +341,25 @@
 						<div class="product-card">
 							<div class="product-card__img">
 								<a href="{% url 'product_detail' i.pk %}">
-								<img class="img" src="{{ i.get_main_image }}" alt="" />
+								<img src="{{ i.get_main_image }}" alt="" />
 									</a>
-								<a href="{% url 'del_fav' i.pk %}">
+<!--								<a href="{% url 'del_fav' i.pk %}">-->
 									{% if i.id in favorites %}
 									<img
 										class="heart-icon"
 										src="{% static './assets/icons/activeHeart.svg' %}"
 										alt="Favorite"
+										onclick="location.href='{% url 'del_fav' i.pk %}'"
 									/>
 									{% else %}
 									<img
 										class="heart-icon"
 										src="{% static './assets/icons/heartIcon.svg' %}"
 										alt="Favorite"
+										onclick="location.href='{% url 'del_fav' i.pk %}'"
 									/>
 									{% endif %}
-									</a>
+<!--									</a>-->
 							</div>
 							<a href="{% url 'product_detail' i.pk %}">
 							<div class="product-card__info">
@@ -380,21 +386,21 @@
 						<div class="feature-card">
 							<img src="{% static './assets/icons/orderImg.svg' %}" alt="" />
 							<div class="feature-card-text">
-								<a href="/">Отправка день в день</a>
+								<a>Отправка день в день</a>
 								<p>ПРИ ЗАКАЗЕ ДО 18:00</p>
 							</div>
 						</div>
 						<div class="feature-card">
 							<img src="{% static './assets/icons/returnImg.svg' %}" alt="" />
 							<div class="feature-card-text">
-								<a href="/vozvrat">Легкий возврат/обмен</a>
+								<a>Легкий возврат/обмен</a>
 								<p>В ТЕЧЕНИИ 14 ДНЕЙ</p>
 							</div>
 						</div>
 						<div class="feature-card">
 							<img src="{% static './assets/icons/discountImg.svg' %}" alt="" />
 							<div class="feature-card-text">
-								<a href="/skidki">Хорошие скидки</a>
+								<a>Хорошие скидки</a>
 								<p>ПОКУПАЙ ТУТ</p>
 							</div>
 						</div>
