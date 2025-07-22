@@ -49,7 +49,7 @@ class Product(models.Model):
         if main_image:
             return main_image.image.url
 
-        return 'static/assets/img/blank.png'
+        return '/static/assets/img/blank.png'
 
 
 class ImageProduct(models.Model):

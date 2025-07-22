@@ -142,7 +142,7 @@ body {
 	align-items: center;
 }
 
-.nav-link {
+footer>.nav-link {
 	display: flex;
 	justify-content: center;
 	align-items: center;
