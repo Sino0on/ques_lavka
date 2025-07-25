@@ -165,6 +165,7 @@
 				<div class="catalog-content">
 					<div class="catalog-grid">
 						<!-- Карточка 1 (маленькая) -->
+
 						<div class="product-card">
 							<div class="product-card__img">
 
@@ -173,10 +174,11 @@
 									alt="Product"
 									class="product-image placeholder"
 								/>
-								<div class="heart-icon">
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-								</div>
+
 							</div>
+<!--							<div class="heart-icon">-->
+							<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+<!--								</div>-->
 							<div class="product-card__info">
 								<a href="{% url 'product_detail' i.product.pk %}">
 									<img

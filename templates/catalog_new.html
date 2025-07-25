@@ -153,37 +153,37 @@
 					<div class="filtersidebar__overlay" id="filterOverlay"></div>
 
 				</div>
-				<!-- Лоадер (скрыт по умолчанию) -->
-				<div class="loader-container">
-					<span class="loader"></span>
-				</div>
+<!--				&lt;!&ndash; Лоадер (скрыт по умолчанию) &ndash;&gt;-->
+<!--				<div class="loader-container">-->
+<!--					<span class="loader"></span>-->
+<!--				</div>-->
 
 				<!-- Контент каталога -->
 				<div class="catalog-content">
 					<div class="catalog-grid">
 						<!-- Карточка 1 (маленькая) -->
+
 						{% if product1 %}
 						<div class="product-card">
-
 								<div class="product-card__img">
-									<a href="{% url 'product_detail' product1.pk %}">
+<!--									<a href="{% url 'product_detail' product1.pk %}">-->
 									<img
 										src="{% if product1.get_main_image %}{{ product1.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
 										alt="Product"
 										class="product-image placeholder"
 									/>
-									</a>
-									<a href="{% url 'del_fav' product1.pk %}">
-									<div class="heart-icon">
-										{% if product1.id in favorites %}
-										<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
-										{% else %}
-										<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-										{% endif %}
-									</div>
-									</a>
+<!--									</a>-->
 								</div>
-							<a href="{% url 'product_detail' product1.pk %}">
+<!--									<a href="{% url 'del_fav' product1.pk %}">-->
+<!--									<div class="heart-icon">-->
+										{% if product1.id in favorites %}
+										<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+										{% else %}
+										<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+										{% endif %}
+<!--									</div>-->
+<!--									</a>-->
+<!--							<a href="{% url 'product_detail' product1.pk %}">-->
 								<div class="product-card__info">
 									<h2 class="product-title">{{ product1.name }}</h2>
 									<h3 class="product-subtitle">{{ product1.barcodes }}</h3>
@@ -191,7 +191,7 @@
 										<p class="product-price">{{ product1.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
 									</div>
 								</div>
-							</a>
+<!--							</a>-->
 						</div>
 						{% endif %}
 						<!-- Карточка 2 (маленькая) -->
@@ -199,23 +199,24 @@
 						<div class="product-card">
 
 							<div class="product-card__img">
-								<a href="{% url 'product_detail' product2.pk %}">
+<!--								<a href="{% url 'product_detail' product2.pk %}">-->
 								<img
 									src="{% if product2.get_main_image %}{{ product2.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
 									alt="Product"
 									class="product-image placeholder"
 								/>
-								</a>
-								<a href="{% url 'del_fav' product2.pk %}">
-								<div class="heart-icon">
-									{% if product2.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-									{% endif %}
-								</div>
-								</a>
+<!--								</a>-->
 							</div>
+<!--								<a href="{% url 'del_fav' product2.pk %}">-->
+<!--								<div class="heart-icon">-->
+									{% if product2.id in favorites %}
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+<!--									{% endif %}-->
+<!--								</div>-->
+<!--								</a>-->
+<!--							</div>-->
 							<a href="{% url 'product_detail' product2.pk %}">
 							<div class="product-card__info">
 								<h2 class="product-title">{{ product2.name }}</h2>
@@ -223,8 +224,9 @@
 								<div class="product-card__footer">
 									<p class="product-price">{{ product2.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
 								</div>
-								</a>
+
 							</div>
+								</a>
 						</div>
 						{% endif %}
 						<!-- Карточка 3 (маленькая) -->
@@ -244,16 +246,17 @@
 									class="product-image placeholder"
 								/>
 								</a>
-								<a href="{% url 'del_fav' product3.pk %}">
-								<div class="heart-icon">
-									{% if product3.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-									{% endif %}
-								</div>
-								</a>
 							</div>
+								<a href="{% url 'del_fav' product3.pk %}">
+<!--								<div class="heart-icon">-->
+									{% if product3.id in favorites %}
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% endif %}
+<!--								</div>-->
+								</a>
+<!--							</div>-->
 							<a href="{% url 'product_detail' product3.pk %}">
 							<div class="product-card__info">
 								<h2 class="product-title">{{ product3.name }}</h2>
@@ -276,16 +279,17 @@
 									class="product-image placeholder"
 								/>
 								</a>
-								<a href="{% url 'del_fav' product4.pk %}">
-								<div class="heart-icon">
-									{% if product4.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-									{% endif %}
-								</div>
-								</a>
 							</div>
+								<a href="{% url 'del_fav' product4.pk %}">
+<!--								<div class="heart-icon">-->
+									{% if product4.id in favorites %}
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% endif %}
+<!--								</div>-->
+								</a>
+<!--							</div>-->
 								<a href="{% url 'product_detail' product4.pk %}">
 							<div class="product-card__info">
 								<h2 class="product-title">{{ product4.name }}</h2>
@@ -315,15 +319,16 @@
 									class="product-image placeholder"
 								/>
 								</a>
-								<a href="{% url 'del_fav' product5.pk %}">
-								<div class="heart-icon">
-									{% if product5.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-									{% endif %}								</div>
-								</a>
 							</div>
+								<a href="{% url 'del_fav' product5.pk %}">
+<!--								<div class="heart-icon">-->
+									{% if product5.id in favorites %}
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% endif %}
+								</a>
+<!--							</div>-->
 							<a href="{% url 'product_detail' product5.pk %}">
 							<div class="product-card__info">
 
@@ -348,16 +353,17 @@
 									class="product-image placeholder"
 								/>
 								</a>
-								<a href="{% url 'del_fav' product6.pk %}">
-								<div class="heart-icon">
-									{% if product6.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-									{% endif %}
-								</div>
-								</a>
 							</div>
+								<a href="{% url 'del_fav' product6.pk %}">
+<!--								<div class="heart-icon">-->
+									{% if product6.id in favorites %}
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% endif %}
+<!--								</div>-->
+								</a>
+<!--							</div>-->
 							<a href="{% url 'product_detail' product6.pk %}">
 							<div class="product-card__info">
 								<h2 class="product-title">{{ product6.name }}</h2>
@@ -386,16 +392,17 @@
 									class="product-image placeholder"
 								/>
 								</a>
-								<a href="{% url 'del_fav' product7.pk %}">
-								<div class="heart-icon">
-									{% if product7.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-									{% endif %}
-								</div>
-								</a>
 							</div>
+								<a href="{% url 'del_fav' product7.pk %}">
+<!--								<div class="heart-icon">-->
+									{% if product7.id in favorites %}
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% endif %}
+<!--								</div>-->
+								</a>
+<!--							</div>-->
 							<a href="{% url 'product_detail' product7.pk %}">
 							<div class="product-card__info">
 								<h2 class="product-title">{{ product7.name }}</h2>
@@ -424,16 +431,17 @@
 									class="product-image placeholder"
 								/>
 								</a>
-								<a href="{% url 'del_fav' product8.pk %}">
-								<div class="heart-icon">
-									{% if product8.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" />
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" />
-									{% endif %}
-								</div>
-								</a>
 							</div>
+								<a href="{% url 'del_fav' product8.pk %}">
+<!--								<div class="heart-icon">-->
+									{% if product8.id in favorites %}
+									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% else %}
+									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+									{% endif %}
+<!--								</div>-->
+								</a>
+
 							<a href="{% url 'product_detail' product8.pk %}">
 							<div class="product-card__info">
 								<h2 class="product-title">{{ product8.name }}</h2>
