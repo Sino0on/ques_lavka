@@ -65,6 +65,8 @@ class ProductListView(FilterView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        for i, j in enumerate(context['products'][:32]):
+            context[f'product{i+1}'] = j
         if self.request.user.is_authenticated:
             context['favorites'] = [i.product.id for i in self.request.user.favorites.all()]
         else:
