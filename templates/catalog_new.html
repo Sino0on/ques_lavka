@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static './css/index.css' %}" />
 <style>
 	.heart-icon:hover {
-		content: url('{% static '/assets/icons/activeHeart.svg' %}');
+		content: url("{% static '/assets/icons/activeHeart.svg' %}");
 	}
 </style>
 {% endblock %}
@@ -161,299 +161,37 @@
 				<!-- Контент каталога -->
 				<div class="catalog-content">
 					<div class="catalog-grid">
-						<!-- Карточка 1 (маленькая) -->
-
-						{% if product1 %}
+						{% for product in products %}
 						<div class="product-card">
-								<div class="product-card__img">
-<!--									<a href="{% url 'product_detail' product1.pk %}">-->
-									<img
-										src="{% if product1.get_main_image %}{{ product1.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
-										alt="Product"
-										class="product-image placeholder"
-									/>
-<!--									</a>-->
-								</div>
-<!--									<a href="{% url 'del_fav' product1.pk %}">-->
-<!--									<div class="heart-icon">-->
-										{% if product1.id in favorites %}
-										<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
-										{% else %}
-										<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
-										{% endif %}
-<!--									</div>-->
-<!--									</a>-->
-<!--							<a href="{% url 'product_detail' product1.pk %}">-->
-								<div class="product-card__info">
-									<h2 class="product-title">{{ product1.name }}</h2>
-									<h3 class="product-subtitle">{{ product1.barcodes }}</h3>
-									<div class="product-card__footer">
-										<p class="product-price">{{ product1.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
-									</div>
-								</div>
-<!--							</a>-->
-						</div>
-						{% endif %}
-						<!-- Карточка 2 (маленькая) -->
-						{% if product2 %}
-						<div class="product-card">
-
 							<div class="product-card__img">
-<!--								<a href="{% url 'product_detail' product2.pk %}">-->
+								<a href="{% url 'product_detail' product.pk %}">
 								<img
-									src="{% if product2.get_main_image %}{{ product2.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
-									alt="Product"
-									class="product-image placeholder"
-								/>
-<!--								</a>-->
-							</div>
-<!--								<a href="{% url 'del_fav' product2.pk %}">-->
-<!--								<div class="heart-icon">-->
-									{% if product2.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
-<!--									{% endif %}-->
-<!--								</div>-->
-<!--								</a>-->
-<!--							</div>-->
-							<a href="{% url 'product_detail' product2.pk %}">
-							<div class="product-card__info">
-								<h2 class="product-title">{{ product2.name }}</h2>
-								<h3 class="product-subtitle">{{ product2.barcodes }}</h3>
-								<div class="product-card__footer">
-									<p class="product-price">{{ product2.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
-								</div>
-
-							</div>
-								</a>
-						</div>
-						{% endif %}
-						<!-- Карточка 3 (маленькая) -->
-						{% if product3 %}
-						<div class="product-card">
-
-							<img
-								src="{% static '/assets/icons/2.svg' %}"
-								alt="Product Icon"
-								class="product-icon"
-							/>
-							<div class="product-card__img">
-								<a href="{% url 'product_detail' product3.pk %}">
-								<img
-									src="{% if product3.get_main_image %}{{ product3.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
+									src="{% if product.get_main_image %}{{ product.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
 									alt="Product"
 									class="product-image placeholder"
 								/>
 								</a>
 							</div>
-								<a href="{% url 'del_fav' product3.pk %}">
-<!--								<div class="heart-icon">-->
-									{% if product3.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% endif %}
-<!--								</div>-->
-								</a>
-<!--							</div>-->
-							<a href="{% url 'product_detail' product3.pk %}">
+							<a href="{% url 'del_fav' product.pk %}">
+								{% if product.id in favorites %}
+								<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
+								{% else %}
+								<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
+								{% endif %}
+							</a>
+							<a href="{% url 'product_detail' product.pk %}">
 							<div class="product-card__info">
-								<h2 class="product-title">{{ product3.name }}</h2>
-								<h3 class="product-subtitle">{{ product3.barcodes }}</h3>
+								<h2 class="product-title">{{ product.name }}</h2>
+								<h3 class="product-subtitle">{{ product.barcodes }}</h3>
 								<div class="product-card__footer">
-									<p class="product-price">{{ product3.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
+									<p class="product-price">{{ product.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
 								</div>
 							</div>
 							</a>
 						</div>
-						{% endif %}
-						<!-- Карточка 4 (маленькая) -->
-						{% if product4 %}
-						<div class="product-card">
-							<div class="product-card__img">
-								<a href="{% url 'product_detail' product4.pk %}">
-								<img
-									src="{% if product4.get_main_image %}{{ product4.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
-									alt="Product"
-									class="product-image placeholder"
-								/>
-								</a>
-							</div>
-								<a href="{% url 'del_fav' product4.pk %}">
-<!--								<div class="heart-icon">-->
-									{% if product4.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% endif %}
-<!--								</div>-->
-								</a>
-<!--							</div>-->
-								<a href="{% url 'product_detail' product4.pk %}">
-							<div class="product-card__info">
-								<h2 class="product-title">{{ product4.name }}</h2>
-								<h3 class="product-subtitle">{{ product4.barcodes }}</h3>
-								<div class="product-card__footer">
-									<p class="product-price">{{ product4.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
-								</div>
-							</div>
-							</a>
-						</div>
-						{% endif %}
-						<!-- Карточка 5 (маленькая) -->
-						{% if product5 %}
-						<div class="product-card">
-
-							<img
-								src="{% static '/assets/icons/4.svg' %}"
-								alt="Product Icon"
-								class="product-icon"
-							/>
-
-							<div class="product-card__img">
-								<a href="{% url 'product_detail' product5.pk %}">
-								<img
-									src="{% if product5.get_main_image %}{{ product5.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
-									alt="Product"
-									class="product-image placeholder"
-								/>
-								</a>
-							</div>
-								<a href="{% url 'del_fav' product5.pk %}">
-<!--								<div class="heart-icon">-->
-									{% if product5.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% endif %}
-								</a>
-<!--							</div>-->
-							<a href="{% url 'product_detail' product5.pk %}">
-							<div class="product-card__info">
-
-								<h2 class="product-title">{{ product5.name }}</h2>
-								<h3 class="product-subtitle">{{ product5.barcodes }}</h3>
-								<div class="product-card__footer">
-									<p class="product-price">{{ product5.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
-								</div>
-							</div>
-							</a>
-						</div>
-						{% endif %}
-						<!-- Карточка 6 (маленькая) -->
-						{% if product6 %}
-						<div class="product-card">
-
-							<div class="product-card__img">
-								<a href="{% url 'product_detail' product6.pk %}">
-								<img
-									src="{% if product6.get_main_image %}{{ product6.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
-									alt="Product"
-									class="product-image placeholder"
-								/>
-								</a>
-							</div>
-								<a href="{% url 'del_fav' product6.pk %}">
-<!--								<div class="heart-icon">-->
-									{% if product6.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% endif %}
-<!--								</div>-->
-								</a>
-<!--							</div>-->
-							<a href="{% url 'product_detail' product6.pk %}">
-							<div class="product-card__info">
-								<h2 class="product-title">{{ product6.name }}</h2>
-								<h3 class="product-subtitle">{{ product6.barcodes }}</h3>
-								<div class="product-card__footer">
-									<p class="product-price">{{ product6.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
-								</div>
-							</div>
-							</a>
-						</div>
-						{% endif %}
-						<!-- Карточка 7 (большая) -->
-						{% if product7 %}
-						<div class="product-card large">
-
-							<img
-								src="{% static '/assets/icons/6.svg' %}"
-								alt="Product Icon"
-								class="product-icon"
-							/>
-							<div class="product-card__img">
-								<a href="{% url 'product_detail' product7.pk %}">
-								<img
-									src="{% if product7.get_main_image %}{{ product7.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
-									alt="Product"
-									class="product-image placeholder"
-								/>
-								</a>
-							</div>
-								<a href="{% url 'del_fav' product7.pk %}">
-<!--								<div class="heart-icon">-->
-									{% if product7.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% endif %}
-<!--								</div>-->
-								</a>
-<!--							</div>-->
-							<a href="{% url 'product_detail' product7.pk %}">
-							<div class="product-card__info">
-								<h2 class="product-title">{{ product7.name }}</h2>
-								<h3 class="product-subtitle">{{ product7.barcodes }}</h3>
-								<div class="product-card__footer">
-									<p class="product-price">{{ product7.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
-								</div>
-							</div>
-							</a>
-						</div>
-						{% endif %}
-						<!-- Карточка 8 (большая) -->
-						{% if product8 %}
-						<div class="product-card large">
-
-							<img
-								src="{% static '/assets/icons/7.svg' %}"
-								alt="Product Icon"
-								class="product-icon"
-							/>
-							<div class="product-card__img">
-								<a href="{% url 'product_detail' product8.pk %}">
-								<img
-									src="{% if product8.get_main_image %}{{ product8.get_main_image }}{% else %}https://home.ques.kg/static/src/template_01.png{% endif %}"
-									alt="Product"
-									class="product-image placeholder"
-								/>
-								</a>
-							</div>
-								<a href="{% url 'del_fav' product8.pk %}">
-<!--								<div class="heart-icon">-->
-									{% if product8.id in favorites %}
-									<img src="{% static '/assets/icons/activeHeart.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% else %}
-									<img src="{% static './assets/icons/heartIcon.svg' %}" alt="heart" class="product-icon-favorite"/>
-									{% endif %}
-<!--								</div>-->
-								</a>
-
-							<a href="{% url 'product_detail' product8.pk %}">
-							<div class="product-card__info">
-								<h2 class="product-title">{{ product8.name }}</h2>
-								<h3 class="product-subtitle">{{ product8.barcodes }}</h3>
-								<div class="product-card__footer">
-									<p class="product-price">{{ product8.sale_price|stringformat:"s"|slice:":-5" }} cом</p>
-								</div>
-							</div>
-
-							</a>
-						</div>
-						{% endif %}
+						{% empty %}
+						<p>Нет товаров.</p>
+						{% endfor %}
 					</div>
 
 					<!-- Пагинация -->

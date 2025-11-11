@@ -41,7 +41,7 @@ class ProductListView(FilterView):
     queryset = Product.objects.all()
     model = Product
     filterset_class = ProductFilter
-    paginate_by = 8
+    paginate_by = 32
     context_object_name = 'products'
 
     def get_queryset(self):
@@ -65,8 +65,6 @@ class ProductListView(FilterView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        for i, j in enumerate(context['products']):
-            context[f'product{i+1}'] = j
         if self.request.user.is_authenticated:
             context['favorites'] = [i.product.id for i in self.request.user.favorites.all()]
         else:
