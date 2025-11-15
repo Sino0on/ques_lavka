@@ -107,3 +107,18 @@ class ContactRequest(models.Model):
     def __str__(self):
         return f"{self.name} ({self.phone})"
 
+
+class Application(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Имя')
+    phone = models.CharField(max_length=50, verbose_name='Телефон')
+    email = models.EmailField(verbose_name='Email')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    def __str__(self):
+        return f"{self.name} ({self.phone})"
+
+    class Meta:
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки'
+        ordering = ['-created_at']
+

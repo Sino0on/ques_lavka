@@ -24,3 +24,4 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(FreedomPayConfig)
+admin.site.register(Application)

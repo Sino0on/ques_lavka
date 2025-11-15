@@ -65,8 +65,6 @@ class ProductListView(FilterView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        for i, j in enumerate(context['products'][:32]):
-            context[f'product{i+1}'] = j
         if self.request.user.is_authenticated:
             context['favorites'] = [i.product.id for i in self.request.user.favorites.all()]
         else:
@@ -399,16 +397,16 @@ def success_freedom_pay(request):
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .forms import ContactRequestForm
-from .telegram_utils import send_to_telegram  # создадим этот файл ниже
+from .forms import ContactRequestForm, ApplicationForm
+from .telegram_utils import send_application_to_telegram
 
 @csrf_exempt
 @require_POST
 def submit_contact_form(request):
-    form = ContactRequestForm(request.POST)
+    form = ApplicationForm(request.POST)
     if form.is_valid():
-        contact = form.save()
+        application = form.save()
         # отправка в Telegram
-        send_to_telegram(contact)
+        send_application_to_telegram(application)
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'errors': form.errors})
