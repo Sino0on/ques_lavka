@@ -43,21 +43,12 @@ def send_to_telegram(contact):
     """
     Старая функция для обратной совместимости
     """
-    telegram_bot_token = config('TELEGRAM_BOT_TOKEN', default='')
-    telegram_chat_id = config('TELEGRAM_CHAT_ID', default='-1002626172514')
-    
-    if not telegram_bot_token:
-        print("TELEGRAM_BOT_TOKEN не установлен в настройках")
-        return
     
     text = f"📥 Новая заявка с сайта:\n\n👤 Имя: {contact.name}\n📞 Телефон: {contact.phone}\n📧 Email: {contact.email}"
-    url = f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage"
+    url = f"https://api.telegram.org/bot{config('TELEGRAM_BOT_TOKEN')}/sendMessage"
     payload = {
-        'chat_id': telegram_chat_id,
+        'chat_id': config('TELEGRAM_CHAT_ID'),
         'text': text,
         'parse_mode': 'HTML'
     }
-    try:
-        requests.post(url, json=payload, timeout=5)
-    except Exception as e:
-        print(f"Ошибка при отправке в Telegram: {e}")
+    requests.post(url, json=payload, timeout=5)
